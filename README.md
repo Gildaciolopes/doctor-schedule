@@ -12,3 +12,12 @@
 - [x] Login com o Google
 - [x] Fundamentos do Next.js (Rotas, Páginas, Layouts)
 - [x] Criação de clínica
+
+## Gerenciamento de Profissionais e Disponibilidade
+
+- [] Sidebar e Route Groups
+- [] Página de médicos
+- [] Criação de médicos & NextSafeAction
+- [] Listagem de médicos
+- [] Atualização de médicos
+- [] Deleção de médicos
