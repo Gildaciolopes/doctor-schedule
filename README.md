@@ -15,8 +15,8 @@
 
 ## Gerenciamento de Profissionais e Disponibilidade
 
-- [] Sidebar e Route Groups
-- [] Página de médicos
+- [x] Sidebar e Route Groups
+- [x] Página de médicos
 - [] Criação de médicos & NextSafeAction
 - [] Listagem de médicos
 - [] Atualização de médicos
