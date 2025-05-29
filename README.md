@@ -9,6 +9,6 @@
 
 - [x] Tela de login e criação de conta
 - [x] Login com e-mail e senha
-- [] Login com o Google
+- [x] Login com o Google
 - [x] Fundamentos do Next.js (Rotas, Páginas, Layouts)
 - [x] Criação de clínica
