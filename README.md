@@ -7,7 +7,7 @@
 
 ## Autenticação e Configurações do Estabelecimento
 
-- [] Tela de login e criação de conta
+- [x] Tela de login e criação de conta
 - [] Login com e-mail e senha
 - [] Login com o Google
 - [] Fundamentos do Next.js (Rotas, Páginas, Layouts)
