@@ -20,5 +20,5 @@
 - [x] Proteger página de médicos (autenticação)
 - [x] Criação de médicos & NextSafeAction
 - [x] Listagem de médicos
-- [] Atualização de médicos
-- [] Deleção de médicos
+- [x] Atualização de médicos
+- [x] Deleção de médicos
