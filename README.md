@@ -22,3 +22,13 @@
 - [x] Listagem de médicos
 - [x] Atualização de médicos
 - [x] Deleção de médicos
+
+## Gerenciamento de Pacientes e Agendamentos
+
+- [] Criação de pacientes
+- [] Edição de pacientes
+- [] Listagem de pacientes
+- [] Deleção de pacientes
+- [] Criação de agendamentos
+- [] Listagem de agendamentos
+- [] Deleção de agendamentos
