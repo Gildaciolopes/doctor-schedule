@@ -9,10 +9,10 @@ import { appointmentsTable } from "@/db/schema";
 import { auth } from "@/lib/auth";
 import { actionClient } from "@/lib/next-safe-action";
 
-import { upsertAppointmentSchema } from "./schema";
+import { addAppointmentSchema } from "./schema";
 
-export const upsertAppointment = actionClient
-  .schema(upsertAppointmentSchema)
+export const addAppointment = actionClient
+  .schema(addAppointmentSchema)
   .action(async ({ parsedInput }) => {
     const session = await auth.api.getSession({
       headers: await headers(),
@@ -29,20 +29,10 @@ export const upsertAppointment = actionClient
       .set("minute", parseInt(parsedInput.time.split(":")[1]))
       .toDate();
 
-    await db
-      .insert(appointmentsTable)
-      .values({
-        ...parsedInput,
-        id: parsedInput.id,
-        clinicId: session?.user.clinic?.id,
-        date: appointmentDateTime,
-      })
-      .onConflictDoUpdate({
-        target: [appointmentsTable.id],
-        set: {
-          ...parsedInput,
-          date: appointmentDateTime,
-        },
-      });
+    await db.insert(appointmentsTable).values({
+      ...parsedInput,
+      clinicId: session?.user.clinic?.id,
+      date: appointmentDateTime,
+    });
     revalidatePath("/appointments");
   });
