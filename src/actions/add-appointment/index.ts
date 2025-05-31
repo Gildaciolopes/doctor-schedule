@@ -9,6 +9,7 @@ import { appointmentsTable } from "@/db/schema";
 import { auth } from "@/lib/auth";
 import { actionClient } from "@/lib/next-safe-action";
 
+import { getAvailableTimes } from "../get-available-times";
 import { addAppointmentSchema } from "./schema";
 
 export const addAppointment = actionClient
@@ -22,6 +23,20 @@ export const addAppointment = actionClient
     }
     if (!session?.user.clinic?.id) {
       throw new Error("Clinic not found");
+    }
+
+    const availableTimes = await getAvailableTimes({
+      doctorId: parsedInput.doctorId,
+      date: dayjs(parsedInput.date).format("YYYY-MM-DD"),
+    });
+    if (!availableTimes?.data) {
+      throw new Error("No available times");
+    }
+    const isTimeAvailable = availableTimes.data?.some(
+      (time) => time.value === parsedInput.time && time.available,
+    );
+    if (!isTimeAvailable) {
+      throw new Error("Time not available");
     }
 
     const appointmentDateTime = dayjs(parsedInput.date)
