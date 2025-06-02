@@ -24,20 +24,14 @@ export const POST = async (request: Request) => {
   );
 
   switch (event.type) {
-    case "invoice.paid": {
-      if (!event.data.object.id) {
-        throw new Error("Subscription ID not found");
-      }
-      const { subscription, subscription_details, customer } = event.data
-        .object as unknown as {
-        customer: string;
-        subscription: string;
-        subscription_details: {
-          metadata: {
-            userId: string;
-          };
-        };
-      };
+    case "invoice.payment_succeeded": {
+      const invoicePaymentSucceeded = event.data.object;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const subscription_details = (invoicePaymentSucceeded as any).parent
+        .subscription_details;
+      const customer = invoicePaymentSucceeded.customer;
+      const subscription = subscription_details!.subscription;
+
       if (!subscription) {
         throw new Error("Subscription not found");
       }
