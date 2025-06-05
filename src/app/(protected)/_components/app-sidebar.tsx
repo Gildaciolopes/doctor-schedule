@@ -73,7 +73,22 @@ export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader className="border-b p-4">
-        <Image src="/logo.svg" alt="Doctor Schedule" width={136} height={28} />
+        <Link href="/">
+          <Image
+            src="/logo.svg"
+            alt="Doctor Schedule"
+            width={136}
+            height={28}
+            className="block dark:hidden"
+          />
+          <Image
+            src="/logo-dark.svg"
+            alt="Doctor Schedule"
+            width={136}
+            height={28}
+            className="hidden dark:block"
+          />
+        </Link>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
@@ -104,7 +119,7 @@ export function AppSidebar() {
                 >
                   <Link href="/subscription">
                     <Gem />
-                    <span>Assinatura</span>
+                    <span>Assinaturas</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
