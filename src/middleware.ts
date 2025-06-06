@@ -4,9 +4,12 @@ import { NextResponse } from "next/server";
 
 export function middleware(request: NextRequest) {
   const sessionCookie = getSessionCookie(request);
-  if (!sessionCookie) {
+
+  // Evita redirecionamento em loop na página de autenticação
+  if (!sessionCookie && request.nextUrl.pathname !== "/authentication") {
     return NextResponse.redirect(new URL("/authentication", request.url));
   }
+
   return NextResponse.next();
 }
 
