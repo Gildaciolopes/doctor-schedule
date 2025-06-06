@@ -2,34 +2,26 @@
 
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
-import { headers } from "next/headers";
 import { z } from "zod";
 
 import { db } from "@/db";
 import { appointmentsTable } from "@/db/schema";
-import { auth } from "@/lib/auth";
-import { actionClient } from "@/lib/next-safe-action";
+import { protectedActionClient } from "@/lib/next-safe-action";
 
-export const deleteAppointment = actionClient
+export const deleteAppointment = protectedActionClient
   .schema(
     z.object({
       id: z.string().uuid(),
     }),
   )
-  .action(async ({ parsedInput }) => {
-    const session = await auth.api.getSession({
-      headers: await headers(),
-    });
-    if (!session?.user) {
-      throw new Error("Unauthorized");
-    }
+  .action(async ({ parsedInput, ctx }) => {
     const appointment = await db.query.appointmentsTable.findFirst({
       where: eq(appointmentsTable.id, parsedInput.id),
     });
     if (!appointment) {
       throw new Error("Agendamento não encontrado");
     }
-    if (appointment.clinicId !== session.user.clinic?.id) {
+    if (appointment.clinicId !== ctx.user.clinic?.id) {
       throw new Error("Agendamento não encontrado");
     }
     await db
