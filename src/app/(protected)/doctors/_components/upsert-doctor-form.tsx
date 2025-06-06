@@ -195,19 +195,15 @@ const UpsertDoctorForm = ({
                   thousandSeparator="."
                   prefix="R$ "
                   customInput={Input}
+                  // limpa o campo quando receber foco (caso ainda tenha “0”)
                   onFocus={() => {
                     if (!field.value || field.value === 0) {
                       field.onChange("");
                     }
                   }}
                   onValueChange={(value) => {
+                    // value.floatValue é undefined se o campo estiver vazio
                     field.onChange(value.floatValue ?? "");
-                  }}
-                  // Quando perder o foco, se estiver vazio, volta para 0
-                  onBlur={() => {
-                    if (field.value === "" || field.value === undefined) {
-                      field.onChange(0);
-                    }
                   }}
                 />
 
