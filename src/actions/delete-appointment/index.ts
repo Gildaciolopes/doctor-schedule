@@ -6,9 +6,9 @@ import { z } from "zod";
 
 import { db } from "@/db";
 import { appointmentsTable } from "@/db/schema";
-import { protectedActionClient } from "@/lib/next-safe-action";
+import { protectedWithClinicActionClient } from "@/lib/next-safe-action";
 
-export const deleteAppointment = protectedActionClient
+export const deleteAppointment = protectedWithClinicActionClient
   .schema(
     z.object({
       id: z.string().uuid(),
@@ -21,7 +21,7 @@ export const deleteAppointment = protectedActionClient
     if (!appointment) {
       throw new Error("Agendamento não encontrado");
     }
-    if (appointment.clinicId !== ctx.user.clinic?.id) {
+    if (appointment.clinicId !== ctx.user.clinic.id) {
       throw new Error("Agendamento não encontrado");
     }
     await db

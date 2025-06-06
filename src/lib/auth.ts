@@ -23,6 +23,7 @@ export const auth = betterAuth({
   },
   plugins: [
     customSession(async ({ user, session }) => {
+      // TODO: colocar cache
       const [userData, clinics] = await Promise.all([
         db.query.usersTable.findFirst({
           where: eq(usersTable.id, user.id),
@@ -35,20 +36,18 @@ export const auth = betterAuth({
           },
         }),
       ]);
-
+      // TODO: Ao adaptar para o usuário ter múltiplas clínicas, deve-se mudar esse código
       const clinic = clinics?.[0];
-
       return {
         user: {
           ...user,
-          plan: userData?.plan ?? null,
-          clinic:
-            clinic?.clinicId && clinic?.clinic?.name
-              ? {
-                  id: clinic.clinicId,
-                  name: clinic.clinic.name,
-                }
-              : undefined,
+          plan: userData?.plan,
+          clinic: clinic?.clinicId
+            ? {
+                id: clinic?.clinicId,
+                name: clinic?.clinic?.name,
+              }
+            : undefined,
         },
         session,
       };

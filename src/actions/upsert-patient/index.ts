@@ -10,7 +10,6 @@ import { upsertPatientSchema } from "./schema";
 
 export const upsertPatient = protectedWithClinicActionClient
   .schema(upsertPatientSchema)
-
   .action(async ({ parsedInput, ctx }) => {
     await db
       .insert(patientsTable)
