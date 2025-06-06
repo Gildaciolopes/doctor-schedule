@@ -67,7 +67,7 @@ export function SubscriptionPlan({
             Essential
           </h3>
           {active && (
-            <Badge className="bg-green-100 text-green-700 hover:bg-green-100">
+            <Badge className="bg-green-100 text-green-700 hover:bg-green-100 dark:bg-[#B253FF]/20 dark:text-[#B253FF] dark:hover:bg-[#B253FF]/20">
               Atual
             </Badge>
           )}

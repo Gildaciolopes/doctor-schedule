@@ -184,20 +184,33 @@ const UpsertDoctorForm = ({
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Preço da consulta</FormLabel>
+
                 <NumericFormat
-                  value={field.value}
-                  onValueChange={(value) => {
-                    field.onChange(value.floatValue);
-                  }}
+                  value={field.value ?? ""}
                   decimalScale={2}
                   fixedDecimalScale
                   decimalSeparator=","
                   allowNegative={false}
                   allowLeadingZeros={false}
                   thousandSeparator="."
+                  prefix="R$ "
                   customInput={Input}
-                  prefix="R$"
+                  onFocus={() => {
+                    if (!field.value || field.value === 0) {
+                      field.onChange("");
+                    }
+                  }}
+                  onValueChange={(value) => {
+                    field.onChange(value.floatValue ?? "");
+                  }}
+                  // Quando perder o foco, se estiver vazio, volta para 0
+                  onBlur={() => {
+                    if (field.value === "" || field.value === undefined) {
+                      field.onChange(0);
+                    }
+                  }}
                 />
+
                 <FormMessage />
               </FormItem>
             )}

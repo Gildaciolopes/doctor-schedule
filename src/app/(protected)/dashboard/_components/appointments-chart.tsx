@@ -50,11 +50,17 @@ const AppointmentsChart = ({
   const chartConfig = {
     appointments: {
       label: "Agendamentos",
-      color: "#0B68F7",
+      theme: {
+        light: "#0B68F7",
+        dark: "#8B5CF6",
+      },
     },
     revenue: {
       label: "Faturamento",
-      color: "#10B981",
+      theme: {
+        light: "#10B981",
+        dark: "#B253FF",
+      },
     },
   } satisfies ChartConfig;
 
@@ -98,7 +104,7 @@ const AppointmentsChart = ({
                     if (name === "revenue") {
                       return (
                         <>
-                          <div className="h-3 w-3 rounded bg-[#10B981]" />
+                          <div className="h-3 w-3 rounded bg-[#10B981] dark:bg-[#B253FF]" />
                           <span className="text-muted-foreground">
                             Faturamento:
                           </span>
@@ -110,7 +116,7 @@ const AppointmentsChart = ({
                     }
                     return (
                       <>
-                        <div className="h-3 w-3 rounded bg-[#0B68F7]" />
+                        <div className="h-3 w-3 rounded bg-[#0B68F7] dark:bg-[#8B5CF6]" />
                         <span className="text-muted-foreground">
                           Agendamentos:
                         </span>

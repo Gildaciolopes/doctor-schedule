@@ -55,7 +55,7 @@ export function AppBreadcrumb() {
                   href={crumb.href}
                   className={cn(
                     index === breadcrumbs.length - 1 &&
-                      "pointer-events-none text-blue-500",
+                      "pointer-events-none text-blue-500 dark:text-[#B253FF]",
                   )}
                 >
                   {crumb.label}
