@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 export function middleware(request: NextRequest) {
   const sessionCookie = getSessionCookie(request);
 
-  // Evita redirecionamento em loop na página de autenticação
+  // Se não houver sessão e a rota NÃO for /authentication, redireciona para a tela de login
   if (!sessionCookie && request.nextUrl.pathname !== "/authentication") {
     return NextResponse.redirect(new URL("/authentication", request.url));
   }
@@ -13,14 +13,14 @@ export function middleware(request: NextRequest) {
   return NextResponse.next();
 }
 
-// See "Matching Paths" below to learn more
 export const config = {
   matcher: [
+    // Rotas protegidas (só acessíveis com sessão válida)
     "/dashboard",
     "/patients",
     "/doctors",
     "/appointments",
     "/subscription",
-    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|authentication).*)",
+    "/((?!api|_next/static|_next/image|favicon\\.ico|sitemap\\.xml|robots\\.txt|authentication).*)",
   ],
 };
