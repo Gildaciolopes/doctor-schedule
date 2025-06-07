@@ -1,6 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useAction } from "next-safe-action/hooks";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -61,6 +62,7 @@ const UpsertPatientForm = ({
   onSuccess,
   isOpen,
 }: UpsertPatientFormProps) => {
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     shouldUnregister: true,
     resolver: zodResolver(formSchema),
@@ -83,7 +85,14 @@ const UpsertPatientForm = ({
       toast.success("Paciente salvo com sucesso.");
       onSuccess?.();
     },
-    onError: () => {
+    onError: (error) => {
+      if (error instanceof Error && error.message === "Clinic not found") {
+        toast.error(
+          "Você precisa cadastrar uma clínica antes de adicionar pacientes.",
+        );
+        router.push("/clinic-form");
+        return;
+      }
       toast.error("Erro ao salvar paciente.");
     },
   });
