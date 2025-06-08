@@ -1,6 +1,7 @@
 "use server";
 
 import dayjs from "dayjs";
+import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
 import { revalidatePath } from "next/cache";
 
@@ -11,6 +12,7 @@ import { protectedWithClinicActionClient } from "@/lib/next-safe-action";
 import { upsertDoctorSchema } from "./schema";
 
 dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export const upsertDoctor = protectedWithClinicActionClient
   .schema(upsertDoctorSchema)
@@ -22,11 +24,13 @@ export const upsertDoctor = protectedWithClinicActionClient
       .set("hour", parseInt(availableFromTime.split(":")[0]))
       .set("minute", parseInt(availableFromTime.split(":")[1]))
       .set("second", parseInt(availableFromTime.split(":")[2]))
+      .tz("America/Sao_Paulo")
       .utc();
     const availableToTimeUTC = dayjs()
       .set("hour", parseInt(availableToTime.split(":")[0]))
       .set("minute", parseInt(availableToTime.split(":")[1]))
       .set("second", parseInt(availableToTime.split(":")[2]))
+      .tz("America/Sao_Paulo")
       .utc();
 
     await db
