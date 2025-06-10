@@ -1,6 +1,8 @@
 "use server";
 
 import dayjs from "dayjs";
+import timezone from "dayjs/plugin/timezone";
+import utc from "dayjs/plugin/utc";
 import { revalidatePath } from "next/cache";
 
 import { db } from "@/db";
@@ -9,6 +11,9 @@ import { protectedWithClinicActionClient } from "@/lib/next-safe-action";
 
 import { getAvailableTimes } from "../get-available-times";
 import { addAppointmentSchema } from "./schema";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export const addAppointment = protectedWithClinicActionClient
   .schema(addAppointmentSchema)
@@ -29,6 +34,7 @@ export const addAppointment = protectedWithClinicActionClient
     const appointmentDateTime = dayjs(parsedInput.date)
       .set("hour", parseInt(parsedInput.time.split(":")[0]))
       .set("minute", parseInt(parsedInput.time.split(":")[1]))
+      .tz("America/Sao_Paulo")
       .toDate();
 
     await db.insert(appointmentsTable).values({

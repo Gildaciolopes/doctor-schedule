@@ -42,7 +42,9 @@ export const getAvailableTimes = protectedWithClinicActionClient
       .filter((appointment) => {
         return dayjs(appointment.date).isSame(parsedInput.date, "day");
       })
-      .map((appointment) => dayjs(appointment.date).format("HH:mm:ss"));
+      .map((appointment) =>
+        dayjs(appointment.date).tz("America/Sao_Paulo").format("HH:mm:ss"),
+      );
     const timeSlots = generateTimeSlots();
 
     const doctorAvailableFrom = dayjs()
@@ -50,25 +52,28 @@ export const getAvailableTimes = protectedWithClinicActionClient
       .set("hour", Number(doctor.availableFromTime.split(":")[0]))
       .set("minute", Number(doctor.availableFromTime.split(":")[1]))
       .set("second", 0)
-      .local();
+      .tz("America/Sao_Paulo");
     const doctorAvailableTo = dayjs()
       .utc()
       .set("hour", Number(doctor.availableToTime.split(":")[0]))
       .set("minute", Number(doctor.availableToTime.split(":")[1]))
       .set("second", 0)
-      .local();
+      .tz("America/Sao_Paulo");
+
     const doctorTimeSlots = timeSlots.filter((time) => {
       const date = dayjs()
         .utc()
         .set("hour", Number(time.split(":")[0]))
         .set("minute", Number(time.split(":")[1]))
-        .set("second", 0);
+        .set("second", 0)
+        .tz("America/Sao_Paulo");
 
       return (
         date.format("HH:mm:ss") >= doctorAvailableFrom.format("HH:mm:ss") &&
         date.format("HH:mm:ss") <= doctorAvailableTo.format("HH:mm:ss")
       );
     });
+
     return doctorTimeSlots.map((time) => {
       return {
         value: time,

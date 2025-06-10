@@ -1,8 +1,13 @@
 import dayjs from "dayjs";
+import timezone from "dayjs/plugin/timezone";
+import utc from "dayjs/plugin/utc";
 import { and, count, desc, eq, gte, lte, sql, sum } from "drizzle-orm";
 
 import { db } from "@/db";
 import { appointmentsTable, doctorsTable, patientsTable } from "@/db/schema";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 interface Params {
   from: string;
@@ -105,8 +110,14 @@ export const getDashboard = async ({ from, to, session }: Params) => {
     db.query.appointmentsTable.findMany({
       where: and(
         eq(appointmentsTable.clinicId, session.user.clinic.id),
-        gte(appointmentsTable.date, new Date()),
-        lte(appointmentsTable.date, new Date()),
+        gte(
+          appointmentsTable.date,
+          dayjs().tz("America/Sao_Paulo").startOf("day").toDate(),
+        ),
+        lte(
+          appointmentsTable.date,
+          dayjs().tz("America/Sao_Paulo").endOf("day").toDate(),
+        ),
       ),
       with: {
         patient: true,
