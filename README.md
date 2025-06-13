@@ -199,4 +199,4 @@ As Pull Requests serão revisadas e, se alinhadas com os objetivos do projeto, p
 
 Gildácio Lopes - contato.gildaciolopes@gmail.com
 
-Link do Projeto: https://github.com/doctor-schedule
+Deploy do projeto: https://doctor-schedule-oz7u.vercel.app
