@@ -17,37 +17,21 @@ dayjs.extend(timezone);
 export const upsertDoctor = protectedWithClinicActionClient
   .schema(upsertDoctorSchema)
   .action(async ({ parsedInput, ctx }) => {
-    const availableFromTime = parsedInput.availableFromTime; // 15:30:00
-    const availableToTime = parsedInput.availableToTime; // 16:00:00
-
-    const availableFromTimeUTC = dayjs()
-      .set("hour", parseInt(availableFromTime.split(":")[0]))
-      .set("minute", parseInt(availableFromTime.split(":")[1]))
-      .set("second", parseInt(availableFromTime.split(":")[2]))
-      .tz("America/Sao_Paulo")
-      .utc();
-    const availableToTimeUTC = dayjs()
-      .set("hour", parseInt(availableToTime.split(":")[0]))
-      .set("minute", parseInt(availableToTime.split(":")[1]))
-      .set("second", parseInt(availableToTime.split(":")[2]))
-      .tz("America/Sao_Paulo")
-      .utc();
-
     await db
       .insert(doctorsTable)
       .values({
         ...parsedInput,
         id: parsedInput.id,
         clinicId: ctx.user.clinic.id,
-        availableFromTime: availableFromTimeUTC.format("HH:mm:ss"),
-        availableToTime: availableToTimeUTC.format("HH:mm:ss"),
+        availableFromTime: parsedInput.availableFromTime,
+        availableToTime: parsedInput.availableToTime,
       })
       .onConflictDoUpdate({
         target: [doctorsTable.id],
         set: {
           ...parsedInput,
-          availableFromTime: availableFromTimeUTC.format("HH:mm:ss"),
-          availableToTime: availableToTimeUTC.format("HH:mm:ss"),
+          availableFromTime: parsedInput.availableFromTime,
+          availableToTime: parsedInput.availableToTime,
         },
       });
     revalidatePath("/doctors");
