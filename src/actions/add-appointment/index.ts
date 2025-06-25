@@ -34,7 +34,7 @@ export const addAppointment = protectedWithClinicActionClient
     const appointmentDateTime = dayjs(parsedInput.date)
       .set("hour", parseInt(parsedInput.time.split(":")[0]))
       .set("minute", parseInt(parsedInput.time.split(":")[1]))
-      .tz("America/Sao_Paulo")
+      .set("second", 0)
       .toDate();
 
     await db.insert(appointmentsTable).values({

@@ -48,25 +48,19 @@ export const getAvailableTimes = protectedWithClinicActionClient
     const timeSlots = generateTimeSlots();
 
     const doctorAvailableFrom = dayjs()
-      .utc()
       .set("hour", Number(doctor.availableFromTime.split(":")[0]))
       .set("minute", Number(doctor.availableFromTime.split(":")[1]))
-      .set("second", 0)
-      .tz("America/Sao_Paulo");
+      .set("second", 0);
     const doctorAvailableTo = dayjs()
-      .utc()
       .set("hour", Number(doctor.availableToTime.split(":")[0]))
       .set("minute", Number(doctor.availableToTime.split(":")[1]))
-      .set("second", 0)
-      .tz("America/Sao_Paulo");
+      .set("second", 0);
 
     const doctorTimeSlots = timeSlots.filter((time) => {
       const date = dayjs()
-        .utc()
         .set("hour", Number(time.split(":")[0]))
         .set("minute", Number(time.split(":")[1]))
-        .set("second", 0)
-        .tz("America/Sao_Paulo");
+        .set("second", 0);
 
       return (
         date.format("HH:mm:ss") >= doctorAvailableFrom.format("HH:mm:ss") &&
@@ -74,10 +68,24 @@ export const getAvailableTimes = protectedWithClinicActionClient
       );
     });
 
+    const today = dayjs().format("YYYY-MM-DD");
+    const now = dayjs();
+
     return doctorTimeSlots.map((time) => {
+      let isAvailable = !appointmentsOnSelectedDate.includes(time);
+      // Se for hoje e o horário já passou, marca como indisponível
+      if (parsedInput.date === today) {
+        const slotDateTime = dayjs()
+          .set("hour", Number(time.split(":")[0]))
+          .set("minute", Number(time.split(":")[1]))
+          .set("second", 0);
+        if (slotDateTime.isBefore(now, "minute")) {
+          isAvailable = false;
+        }
+      }
       return {
         value: time,
-        available: !appointmentsOnSelectedDate.includes(time),
+        available: isAvailable,
         label: time.substring(0, 5),
       };
     });
