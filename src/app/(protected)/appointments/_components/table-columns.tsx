@@ -1,12 +1,16 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { format } from "date-fns";
-import { ptBR } from "date-fns/locale";
+import dayjs from "dayjs";
+import timezone from "dayjs/plugin/timezone";
+import utc from "dayjs/plugin/utc";
 
 import { appointmentsTable } from "@/db/schema";
 
 import AppointmentsTableActions from "./table-actions";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 type AppointmentWithRelations = typeof appointmentsTable.$inferSelect & {
   patient: {
@@ -44,9 +48,9 @@ export const appointmentsTableColumns: ColumnDef<AppointmentWithRelations>[] = [
     header: "Data e Hora",
     cell: (params) => {
       const appointment = params.row.original;
-      return format(new Date(appointment.date), "dd/MM/yyyy 'às' HH:mm", {
-        locale: ptBR,
-      });
+      return dayjs(appointment.date)
+        .tz("America/Sao_Paulo")
+        .format("DD/MM/YYYY [às] HH:mm");
     },
   },
   {
