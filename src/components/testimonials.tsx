@@ -18,7 +18,7 @@ const Testimonials = () => {
           {[
             {
               name: "Dra. Vitória Alves",
-              specialty: "Psicóloga",
+              specialty: "Neuropsicóloga",
               text: "O Doctor Schedule revolucionou minha prática. Agora posso focar 100% nos meus pacientes.",
               rating: 5,
             },

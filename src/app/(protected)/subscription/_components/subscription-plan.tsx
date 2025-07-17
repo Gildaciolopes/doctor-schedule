@@ -86,9 +86,9 @@ export function SubscriptionPlan({
       <CardContent>
         <div className="space-y-4 border-t border-gray-200 pt-6">
           {features.map((feature, index) => (
-            <div key={index} className="flex items-start">
+            <div key={index} className="flex items-center">
               <div className="flex-shrink-0">
-                <CheckCircle2 className="h-5 w-5 text-green-500" />
+                <CheckCircle2 className="h-5 w-5 text-green-500 dark:text-[#B253FF]" />
               </div>
               <p className="ml-3 text-gray-600 dark:text-gray-400">{feature}</p>
             </div>
