@@ -2,10 +2,10 @@ import { Star } from "lucide-react";
 
 const Testimonials = () => {
   return (
-    <section id="depoimentos" className="bg-white px-6 py-20">
+    <section id="depoimentos" className="bg-background px-6 py-20">
       <div className="container mx-auto max-w-6xl">
         <div className="mb-16 text-center">
-          <h2 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">
+          <h2 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl dark:text-white">
             O que nossos{" "}
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               médicos
@@ -37,7 +37,7 @@ const Testimonials = () => {
           ].map((testimonial, index) => (
             <div
               key={index}
-              className="rounded-2xl bg-gray-50 p-8 transition-shadow duration-300 hover:cursor-pointer hover:shadow-lg"
+              className="dark:bg-card transform rounded-2xl bg-gray-50 p-8 transition-all duration-300 hover:-translate-y-2 hover:cursor-pointer hover:shadow-lg dark:hover:bg-zinc-800"
             >
               <div className="mb-4 flex items-center">
                 {[...Array(testimonial.rating)].map((_, i) => (
@@ -47,12 +47,16 @@ const Testimonials = () => {
                   />
                 ))}
               </div>
-              <p className="mb-6 text-gray-700 italic">{testimonial.text}</p>
+              <p className="mb-6 text-gray-700 italic dark:text-gray-300">
+                {testimonial.text}
+              </p>
               <div>
-                <p className="font-semibold text-gray-900">
+                <p className="dark:text-primary font-semibold text-gray-900">
                   {testimonial.name}
                 </p>
-                <p className="text-gray-600">{testimonial.specialty}</p>
+                <p className="text-gray-600 dark:text-white">
+                  {testimonial.specialty}
+                </p>
               </div>
             </div>
           ))}

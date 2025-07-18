@@ -31,11 +31,11 @@ const ContactCTA = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Seu melhor e-mail"
-              className="flex-1 rounded-full px-6 py-4 text-gray-900 placeholder-blue-100 ring-4 ring-white/30 focus:ring-white/40 focus:outline-none"
+              className="max-w-[210px] flex-1 rounded-full px-4 py-3 text-white placeholder-blue-100 ring-4 ring-white/30 focus:ring-white/40 focus:outline-none"
             />
             <button
               onClick={handleSubmit}
-              className="transform rounded-full bg-white px-8 py-4 font-semibold text-purple-600 transition-all duration-300 hover:-translate-y-1 hover:cursor-pointer hover:shadow-lg"
+              className="transform rounded-full bg-white px-8 py-3 text-base font-semibold text-purple-600 transition-all duration-300 hover:-translate-y-1 hover:cursor-pointer hover:shadow-lg"
             >
               {isSubmitted ? "Obrigado!" : "Começar Agora"}
             </button>
@@ -43,8 +43,8 @@ const ContactCTA = () => {
         </div>
 
         <p className="mt-6 text-sm text-blue-100">
-          Teste grátis por 30 dias • Sem cartão de crédito • Cancele a qualquer
-          momento
+          Teste grátis por 30 dias • Controle de Agendamentos • Cancele a
+          qualquer momento
         </p>
       </div>
     </section>

@@ -15,16 +15,18 @@ const NextAppointmentsCard = async () => {
     return (
       <div className="relative">
         <div className="absolute inset-0 rotate-6 transform rounded-3xl bg-gradient-to-r from-blue-400 to-purple-500 opacity-20"></div>
-        <div className="relative transform rounded-3xl bg-white p-8 shadow-2xl transition-transform duration-300 hover:-translate-y-2">
+        <div className="dark:bg-card relative transform rounded-3xl bg-white p-8 shadow-2xl transition-transform duration-300 hover:-translate-y-2 hover:cursor-pointer">
           <div className="space-y-6">
             <div className="flex items-center justify-between">
-              <h3 className="text-xl font-semibold text-gray-800">
+              <h3 className="dark:text-primary text-xl font-semibold text-gray-800">
                 Próximas Consultas
               </h3>
-              <Calendar className="h-6 w-6 text-blue-600" />
+              <Calendar className="text-primary h-6 w-6" />
             </div>
             <div className="space-y-4">
-              <p className="text-gray-600">Nenhuma consulta encontrada.</p>
+              <p className="text-gray-600 dark:text-gray-300">
+                Nenhuma consulta encontrada.
+              </p>
             </div>
           </div>
         </div>
@@ -52,13 +54,13 @@ const NextAppointmentsCard = async () => {
   return (
     <div className="relative">
       <div className="absolute inset-0 rotate-6 transform rounded-3xl bg-gradient-to-r from-blue-400 to-purple-500 opacity-20"></div>
-      <div className="relative transform rounded-3xl bg-white p-8 shadow-2xl transition-transform duration-300 hover:-translate-y-2">
+      <div className="dark:bg-card relative transform rounded-3xl bg-white p-8 shadow-2xl transition-transform duration-300 hover:-translate-y-2 hover:cursor-pointer">
         <div className="space-y-6">
           <div className="flex items-center justify-between">
-            <h3 className="text-xl font-semibold text-gray-800">
+            <h3 className="dark:text-primary text-xl font-semibold text-gray-800">
               Próximas Consultas
             </h3>
-            <Calendar className="h-6 w-6 text-blue-600" />
+            <Calendar className="text-primary h-6 w-6" />
           </div>
 
           <div className="space-y-4">
@@ -66,7 +68,7 @@ const NextAppointmentsCard = async () => {
               appointments.map((appointment, index) => (
                 <div
                   key={index}
-                  className="flex items-center space-x-4 rounded-xl bg-gray-50 p-4 transition-colors hover:bg-blue-50"
+                  className="dark:bg-background flex items-center space-x-4 rounded-xl bg-gray-50 p-4 transition-colors hover:bg-blue-50"
                 >
                   <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-purple-500 font-semibold text-white">
                     {appointment.patient
@@ -78,12 +80,12 @@ const NextAppointmentsCard = async () => {
                       : ""}
                   </div>
                   <div className="flex-1">
-                    <p className="font-semibold text-gray-800">
+                    <p className="font-semibold text-gray-800 dark:text-white">
                       {appointment.patient?.name}
                     </p>
-                    <p className="text-sm text-gray-600">{`Dr. ${appointment.doctor?.name}`}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300">{`Dr. ${appointment.doctor?.name}`}</p>
                   </div>
-                  <div className="font-semibold text-blue-600">
+                  <div className="text-primary font-semibold">
                     {appointment.date.toLocaleDateString("pt-BR", {
                       year: "numeric",
                       month: "2-digit",
@@ -97,7 +99,7 @@ const NextAppointmentsCard = async () => {
                 </div>
               ))
             ) : (
-              <p className="text-gray-600">
+              <p className="text-gray-600 dark:text-gray-300">
                 Nenhuma consulta futura encontrada.
               </p>
             )}

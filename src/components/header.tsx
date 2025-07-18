@@ -5,45 +5,63 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
+import { ModeToggle } from "@/components/mode-toggle";
+
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
-    <header className="fixed top-0 z-50 w-full border-b border-gray-200/20 bg-white/90 shadow-sm backdrop-blur-md">
+    <header className="dark:bg-card/80 fixed top-0 z-50 w-full border-b border-gray-200/20 bg-white/90 shadow-sm backdrop-blur-md">
       <nav className="container mx-auto flex items-center justify-between px-6 py-4">
         <Link href="/">
-          <Image src="/logo.svg" alt="Logo" width={156} height={38} priority />
+          <Image
+            className="block dark:hidden"
+            src="/logo.svg"
+            alt="Logo"
+            width={156}
+            height={38}
+            priority
+          />
+          <Image
+            className="hidden dark:block"
+            src="/logo-dark.svg"
+            alt="Logo"
+            width={156}
+            height={38}
+            priority
+          />
         </Link>
 
         <div className="hidden items-center space-x-8 md:flex">
           <a
             href="#recursos"
-            className="text-gray-700 transition-colors hover:text-blue-600"
+            className="dark:hover:text-primary font-semibold text-gray-700 transition-colors hover:text-blue-600 dark:text-white"
           >
             Recursos
           </a>
           <a
             href="#beneficios"
-            className="text-gray-700 transition-colors hover:text-blue-600"
+            className="dark:hover:text-primary font-semibold text-gray-700 transition-colors hover:text-blue-600 dark:text-white"
           >
             Benefícios
           </a>
           <a
             href="#depoimentos"
-            className="text-gray-700 transition-colors hover:text-blue-600"
+            className="dark:hover:text-primary font-semibold text-gray-700 transition-colors hover:text-blue-600 dark:text-white"
           >
             Depoimentos
           </a>
           <a
             href="#contato"
-            className="text-gray-700 transition-colors hover:text-blue-600"
+            className="dark:hover:text-primary font-semibold text-gray-700 transition-colors hover:text-blue-600 dark:text-white"
           >
             Contato
           </a>
           <Link href="/authentication">
-            <button className="rounded-full bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-3 text-white transition-all duration-300 hover:shadow-lg">
+            <button className="rounded-full bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-3 font-semibold text-white transition-all duration-300 hover:cursor-pointer hover:shadow-lg">
               Começar Agora
             </button>
           </Link>
+          <ModeToggle />
         </div>
 
         <button
