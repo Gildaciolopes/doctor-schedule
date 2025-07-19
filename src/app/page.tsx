@@ -8,7 +8,7 @@ import Testimonials from "@/components/testimonials";
 
 const HomePage = () => {
   return (
-    <div className="dark:via-background dark:from-primary min-h-screen bg-gradient-to-br from-blue-100 via-white to-purple-50 dark:to-black">
+    <div className="dark:via-background min-h-screen bg-gradient-to-br from-blue-100 via-white to-purple-50 dark:from-purple-900 dark:to-black">
       {/* Header */}
       <Header />
 

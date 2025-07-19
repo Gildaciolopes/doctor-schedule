@@ -18,15 +18,15 @@ const Hero = async () => {
           <div className="space-y-8">
             <div className="space-y-6">
               <h1 className="text-5xl leading-tight font-bold md:text-6xl">
-                <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent dark:from-blue-400 dark:via-indigo-950 dark:to-black">
+                <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
                   Revolucione
                 </span>
                 <br />
-                <span className="text-primary dark:text-black">
+                <span className="text-primary dark:text-white">
                   seus agendamentos médicos
                 </span>
               </h1>
-              <p className="text-xl leading-relaxed text-gray-600 dark:text-white">
+              <p className="text-xl leading-relaxed text-gray-600 dark:text-gray-300">
                 Simplifique a gestão de consultas com nossa plataforma
                 intuitiva. Mais tempo para cuidar dos pacientes, menos tempo com
                 papelada.
@@ -40,7 +40,7 @@ const Hero = async () => {
                   <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </button>
               </Link>
-              <button className="rounded-full border-2 border-gray-300 px-8 py-4 text-lg font-semibold text-gray-700 transition-all duration-300 hover:cursor-pointer hover:border-blue-600 hover:text-blue-600 dark:border-gray-300 dark:text-gray-300 dark:hover:border-white dark:hover:text-white">
+              <button className="dark:hover:text-primary rounded-full border-2 border-gray-300 px-8 py-4 text-lg font-semibold text-gray-700 transition-all duration-300 hover:cursor-pointer hover:border-blue-600 hover:text-blue-600 dark:border-gray-300 dark:text-gray-300 dark:hover:border-white">
                 Ver Demonstração
               </button>
             </div>
