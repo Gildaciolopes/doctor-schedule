@@ -10,7 +10,7 @@ import SignUpForm from "./components/sign-up-form";
 const AuthenticationPage = async ({
   searchParams,
 }: {
-  searchParams: { demo?: string };
+  searchParams: Promise<{ demo?: string }>;
 }) => {
   const session = await auth.api.getSession({
     headers: await headers(),
@@ -19,7 +19,8 @@ const AuthenticationPage = async ({
     redirect("/dashboard");
   }
 
-  const isDemo = searchParams.demo === "true";
+  const resolvedSearchParams = await searchParams;
+  const isDemo = resolvedSearchParams.demo === "true";
 
   return (
     <div className="flex h-screen w-screen items-center justify-center">
