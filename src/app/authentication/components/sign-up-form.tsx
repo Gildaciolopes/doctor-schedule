@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -37,6 +37,9 @@ const registerSchema = z.object({
 
 const SignUpForm = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const isDemo = searchParams.get("demo") === "true";
+
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -47,6 +50,11 @@ const SignUpForm = () => {
   });
 
   async function onSubmit(values: z.infer<typeof registerSchema>) {
+    // Armazenar informação de demo no localStorage antes do cadastro
+    if (isDemo) {
+      localStorage.setItem("isDemoUser", "true");
+    }
+
     await authClient.signUp.email(
       {
         email: values.email,
@@ -74,7 +82,11 @@ const SignUpForm = () => {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <CardHeader>
             <CardTitle>Criar conta</CardTitle>
-            <CardDescription>Crie uma conta para continuar.</CardDescription>
+            <CardDescription>
+              {isDemo
+                ? "Crie uma conta gratuita para testar nossa plataforma por 30 dias."
+                : "Crie uma conta para continuar."}
+            </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <FormField
@@ -129,6 +141,8 @@ const SignUpForm = () => {
             >
               {form.formState.isSubmitting ? (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : isDemo ? (
+                "Começar Teste Grátis"
               ) : (
                 "Criar conta"
               )}

@@ -42,6 +42,7 @@ export const auth = betterAuth({
         user: {
           ...user,
           plan: userData?.plan,
+          isDemoUser: userData?.isDemoUser || false,
           clinic: clinic?.clinicId
             ? {
                 id: clinic?.clinicId,
@@ -69,6 +70,11 @@ export const auth = betterAuth({
       plan: {
         type: "string",
         fieldName: "plan",
+        required: false,
+      },
+      isDemoUser: {
+        type: "boolean",
+        fieldName: "isDemoUser",
         required: false,
       },
     },

@@ -40,9 +40,11 @@ const Hero = async () => {
                   <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </button>
               </Link>
-              <button className="dark:hover:text-primary rounded-full border-2 border-gray-300 px-8 py-4 text-lg font-semibold text-gray-700 transition-all duration-300 hover:cursor-pointer hover:border-blue-600 hover:text-blue-600 dark:border-gray-300 dark:text-gray-300 dark:hover:border-white">
-                Ver Demonstração
-              </button>
+              <Link href="/authentication?demo=true">
+                <button className="dark:hover:text-primary rounded-full border-2 border-gray-300 px-8 py-4 text-lg font-semibold text-gray-700 transition-all duration-300 hover:cursor-pointer hover:border-blue-600 hover:text-blue-600 dark:border-gray-300 dark:text-gray-300 dark:hover:border-white">
+                  Ver Demonstração
+                </button>
+              </Link>
             </div>
 
             <div className="flex items-center space-x-8 pt-4">
