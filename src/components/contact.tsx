@@ -14,7 +14,10 @@ const ContactCTA = () => {
     }
   };
   return (
-    <section className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 px-6 py-20">
+    <section
+      id="contato"
+      className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 px-6 py-20"
+    >
       <div className="container mx-auto max-w-4xl text-center">
         <h2 className="mb-6 text-4xl font-bold text-white md:text-5xl">
           Pronto para transformar sua clínica?
