@@ -1,6 +1,6 @@
+import { DemoUserHandler } from "@/components/demo-user-handler";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
-import { DemoUserHandler } from "@/components/demo-user-handler";
 import { AppSidebar } from "./_components/app-sidebar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
