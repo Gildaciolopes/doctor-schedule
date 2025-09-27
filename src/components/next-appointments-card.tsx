@@ -1,3 +1,6 @@
+import dayjs from "dayjs";
+import timezone from "dayjs/plugin/timezone";
+import utc from "dayjs/plugin/utc";
 import { and, eq, gt } from "drizzle-orm";
 import { Calendar } from "lucide-react";
 import { headers } from "next/headers";
@@ -5,6 +8,9 @@ import { headers } from "next/headers";
 import { db } from "@/db";
 import { appointmentsTable } from "@/db/schema";
 import { auth } from "@/lib/auth";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 const NextAppointmentsCard = async () => {
   const session = await auth.api.getSession({
@@ -86,15 +92,9 @@ const NextAppointmentsCard = async () => {
                     <p className="text-sm text-gray-600 dark:text-gray-300">{`Dr. ${appointment.doctor?.name}`}</p>
                   </div>
                   <div className="text-primary font-semibold">
-                    {appointment.date.toLocaleDateString("pt-BR", {
-                      year: "numeric",
-                      month: "2-digit",
-                      day: "2-digit",
-                    })}{" "}
-                    {appointment.date.toLocaleTimeString("pt-BR", {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}{" "}
+                    {dayjs(appointment.date)
+                      .tz("America/Sao_Paulo")
+                      .format("DD/MM/YYYY [às] HH:mm")}
                   </div>
                 </div>
               ))

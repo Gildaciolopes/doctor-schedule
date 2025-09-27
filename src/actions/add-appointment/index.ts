@@ -32,9 +32,11 @@ export const addAppointment = protectedWithClinicActionClient
       throw new Error("Time not available");
     }
     const appointmentDateTime = dayjs(parsedInput.date)
+      .tz("America/Sao_Paulo")
       .set("hour", parseInt(parsedInput.time.split(":")[0]))
       .set("minute", parseInt(parsedInput.time.split(":")[1]))
       .set("second", 0)
+      .utc()
       .toDate();
 
     await db.insert(appointmentsTable).values({
