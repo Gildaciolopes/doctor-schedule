@@ -2,13 +2,13 @@
 
 ![Stars](https://img.shields.io/github/stars/Gildaciolopes/doctor-schedule?style=social) ![Forks](https://img.shields.io/github/forks/Gildaciolopes/doctor-schedule?style=social)
 
-**Dr. Agenda** é um Software como Serviço (SaaS) robusto e intuitivo, projetado para simplificar e otimizar o gerenciamento de consultas em clínicas médicas e consultórios.
+**Dr. Schedule** é um Software como Serviço (SaaS) robusto e intuitivo, projetado para simplificar e otimizar o gerenciamento de consultas em clínicas médicas e consultórios.
 
 ---
 
 ## 🌟 Sobre o Projeto
 
-O Dr. Agenda visa resolver a complexidade no agendamento e gerenciamento de pacientes e médicos, oferecendo uma plataforma centralizada que facilita a organização diária de uma clínica. Com ele, é possível gerenciar horários, informações de pacientes, disponibilidade médica e muito mais, tudo de forma eficiente e integrada.
+O Dr. Schedule visa resolver a complexidade no agendamento e gerenciamento de pacientes e médicos, oferecendo uma plataforma centralizada que facilita a organização diária de uma clínica. Com ele, é possível gerenciar horários, informações de pacientes, disponibilidade médica e muito mais, tudo de forma eficiente e integrada.
 
 ---
 
