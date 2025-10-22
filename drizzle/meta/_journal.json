@@ -8,6 +8,13 @@
       "when": 1758582053056,
       "tag": "0000_crazy_catseye",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1761109234123,
+      "tag": "0001_freezing_alex_wilder",
+      "breakpoints": true
     }
   ]
 }

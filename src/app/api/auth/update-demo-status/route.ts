@@ -18,10 +18,18 @@ export async function POST(request: NextRequest) {
 
     const { isDemoUser } = await request.json();
 
-    // Atualizar o campo isDemoUser do usuário
+    // Definir data de fim do período de teste (30 dias a partir de agora)
+    const demoTrialEndsAt = isDemoUser
+      ? new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) // 30 dias
+      : null;
+
+    // Atualizar o campo isDemoUser e demoTrialEndsAt do usuário
     await db
       .update(usersTable)
-      .set({ isDemoUser })
+      .set({
+        isDemoUser,
+        demoTrialEndsAt,
+      })
       .where(eq(usersTable.id, session.user.id));
 
     return NextResponse.json({ success: true });

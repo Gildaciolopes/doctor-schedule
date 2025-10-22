@@ -20,6 +20,7 @@ export const usersTable = pgTable("users", {
   stripeSubscriptionId: text("stripe_subscription_id"),
   plan: text("plan"),
   isDemoUser: boolean("is_demo_user").default(false),
+  demoTrialEndsAt: timestamp("demo_trial_ends_at"),
   createdAt: timestamp("created_at").notNull(),
   updatedAt: timestamp("updated_at").notNull(),
 });

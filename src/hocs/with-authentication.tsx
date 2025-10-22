@@ -6,6 +6,7 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
+import { hasValidAccess } from "@/helpers/demo-trial";
 import { auth } from "@/lib/auth";
 
 const WithAuthentication = async ({
@@ -23,9 +24,19 @@ const WithAuthentication = async ({
   if (!session?.user) {
     redirect("/authentication");
   }
-  if (mustHavePlan && !session.user.plan && !session.user.isDemoUser) {
+
+  // Verifica se o usuário tem acesso válido (plano pago OU período de teste válido)
+  if (
+    mustHavePlan &&
+    !hasValidAccess(
+      session.user.plan || null,
+      session.user.isDemoUser,
+      session.user.demoTrialEndsAt || null,
+    )
+  ) {
     redirect("/new-subscription");
   }
+
   if (mustHaveClinic && !session.user.clinic) {
     redirect("/clinic-form");
   }
