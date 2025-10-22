@@ -7,7 +7,7 @@ import { ptBR } from "date-fns/locale";
 import dayjs from "dayjs";
 import { CalendarIcon } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { NumericFormat } from "react-number-format";
 import { toast } from "sonner";
@@ -79,6 +79,8 @@ const AddAppointmentForm = ({
   onSuccess,
   isOpen,
 }: AddAppointmentFormProps) => {
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+
   const form = useForm<z.infer<typeof formSchema>>({
     shouldUnregister: true,
     resolver: zodResolver(formSchema),
@@ -129,6 +131,7 @@ const AddAppointmentForm = ({
         date: undefined,
         time: "",
       });
+      setIsCalendarOpen(false);
     }
   }, [isOpen, form]);
 
@@ -261,7 +264,7 @@ const AddAppointmentForm = ({
             render={({ field }) => (
               <FormItem className="flex flex-col">
                 <FormLabel>Data</FormLabel>
-                <Popover>
+                <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
                   <PopoverTrigger asChild>
                     <FormControl>
                       <Button
@@ -285,7 +288,10 @@ const AddAppointmentForm = ({
                     <Calendar
                       mode="single"
                       selected={field.value}
-                      onSelect={field.onChange}
+                      onSelect={(date) => {
+                        field.onChange(date);
+                        setIsCalendarOpen(false);
+                      }}
                       disabled={(date) =>
                         dayjs(date).isBefore(dayjs().startOf("day")) ||
                         !isDateAvailable(date)
