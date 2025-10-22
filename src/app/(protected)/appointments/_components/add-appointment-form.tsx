@@ -291,6 +291,25 @@ const AddAppointmentForm = ({
                         !isDateAvailable(date)
                       }
                       initialFocus
+                      classNames={{
+                        day_disabled:
+                          "text-muted-foreground/30 opacity-50 cursor-not-allowed bg-muted/20",
+                        day_outside: "text-muted-foreground/40 opacity-60",
+                        day_selected:
+                          "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
+                        day_today:
+                          "bg-accent text-accent-foreground font-semibold ring-1 ring-primary/20",
+                      }}
+                      modifiers={{
+                        past: (date) =>
+                          dayjs(date).isBefore(dayjs().startOf("day")),
+                        unavailable: (date) => !isDateAvailable(date),
+                      }}
+                      modifiersClassNames={{
+                        past: "text-muted-foreground/40 opacity-50 bg-muted/30 cursor-not-allowed",
+                        unavailable:
+                          "text-muted-foreground/50 opacity-60 bg-muted/20 cursor-not-allowed",
+                      }}
                     />
                   </PopoverContent>
                 </Popover>

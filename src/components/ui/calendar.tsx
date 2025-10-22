@@ -1,5 +1,6 @@
 "use client";
 
+import { ptBR } from "date-fns/locale";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import * as React from "react";
 import { DayPicker } from "react-day-picker";
@@ -14,80 +15,119 @@ function Calendar({
   ...props
 }: React.ComponentProps<typeof DayPicker>) {
   return (
-    <DayPicker
-      showOutsideDays={showOutsideDays}
-      className={cn("p-3", className)}
-      classNames={{
-        months: "flex flex-col sm:flex-row gap-2",
-        month: "flex flex-col gap-4",
-        caption: "flex justify-center pt-1 relative items-center w-full",
-        caption_label: "text-sm font-medium",
-        nav: "flex items-center gap-1",
-        nav_button: cn(
-          buttonVariants({ variant: "outline" }),
-          "size-7 bg-transparent p-0 opacity-50 hover:opacity-100",
-        ),
-        nav_button_previous: "absolute left-1",
-        nav_button_next: "absolute right-1",
-        table: "w-full border-collapse space-x-1",
-        head_row: "flex",
-        head_cell:
-          "text-muted-foreground rounded-md w-8 font-normal text-[0.8rem]",
-        row: "flex w-full mt-2",
-        cell: cn(
-          "relative p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-accent [&:has([aria-selected].day-range-end)]:rounded-r-md",
-          props.mode === "range"
-            ? "[&:has(>.day-range-end)]:rounded-r-md [&:has(>.day-range-start)]:rounded-l-md first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md"
-            : "[&:has([aria-selected])]:rounded-md",
-        ),
-        day: cn(
-          buttonVariants({ variant: "ghost" }),
-          "size-8 p-0 font-normal aria-selected:opacity-100",
-        ),
-        day_range_start:
-          "day-range-start aria-selected:bg-primary aria-selected:text-primary-foreground",
-        day_range_end:
-          "day-range-end aria-selected:bg-primary aria-selected:text-primary-foreground",
-        day_selected:
-          "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
-        day_today: "bg-accent text-accent-foreground",
-        day_outside:
-          "day-outside text-muted-foreground aria-selected:text-muted-foreground",
-        day_disabled: "text-muted-foreground opacity-50",
-        day_range_middle:
-          "aria-selected:bg-accent aria-selected:text-accent-foreground",
-        day_hidden: "invisible",
-        ...classNames,
-      }}
-      components={{
-        Chevron: ({
-          orientation,
+    <div className="calendar-wrapper flex justify-center [&_.rdp-cell]:!w-8 [&_.rdp-cell]:!max-w-8 [&_.rdp-cell]:!min-w-8 [&_.rdp-cell]:!flex-shrink-0 [&_.rdp-head_cell]:!w-8 [&_.rdp-head_cell]:!max-w-8 [&_.rdp-head_cell]:!min-w-8 [&_.rdp-head_cell]:!flex-shrink-0 [&_.rdp-head_row]:!flex [&_.rdp-head_row]:!w-full [&_.rdp-head_row]:!justify-between [&_.rdp-row]:!flex [&_.rdp-row]:!w-full [&_.rdp-row]:!justify-between">
+      <DayPicker
+        showOutsideDays={showOutsideDays}
+        className={cn(
+          "bg-card text-card-foreground rounded-lg border p-4 shadow-sm [&_.rdp-head_cell]:!flex [&_.rdp-head_cell]:!w-8 [&_.rdp-head_cell]:!max-w-8 [&_.rdp-head_cell]:!min-w-8 [&_.rdp-head_cell]:!flex-shrink-0 [&_.rdp-head_cell]:!items-center [&_.rdp-head_cell]:!justify-center [&_.rdp-head_cell]:!overflow-hidden [&_.rdp-head_cell]:!px-0 [&_.rdp-head_cell]:!py-0 [&_.rdp-head_cell]:!text-center [&_.rdp-head_cell]:!whitespace-nowrap [&_.rdp-head_row]:!justify-between [&_.rdp-row]:!justify-between",
           className,
-          ...props
-        }: {
-          // tipagem compatível com react-day-picker v9
-          orientation?: "up" | "down" | "left" | "right" | undefined;
-          className?: string;
-          disabled?: boolean;
-          size?: number;
-          // aceita outras props que o DayPicker pode passar
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          [key: string]: any;
-        }) => {
-          // caso queira suportar 'up'/'down' também -> mapear para icons direita/esquerda
-          if (orientation === "left") {
+        )}
+        locale={ptBR}
+        weekStartsOn={1}
+        formatters={{
+          formatWeekdayName: (date) => {
+            const weekdays = ["dom", "seg", "ter", "qua", "qui", "sex", "sáb"];
+            return weekdays[date.getDay()];
+          },
+        }}
+        classNames={{
+          months: "flex flex-col sm:flex-row gap-2",
+          month: "flex flex-col gap-4",
+          caption: "flex justify-center pt-1 relative items-center w-full",
+          caption_label: "text-sm font-medium",
+          nav: "flex items-center gap-1",
+          nav_button: cn(
+            buttonVariants({ variant: "outline" }),
+            "size-7 bg-transparent p-0 opacity-50 hover:opacity-100",
+          ),
+          nav_button_previous: "absolute left-1",
+          nav_button_next: "absolute right-1",
+          table: "w-full border-collapse",
+          head_row: "flex w-full justify-between mb-2",
+          head_cell:
+            "text-muted-foreground rounded-md w-8 font-normal text-[0.8rem] flex items-center justify-center flex-shrink-0",
+          row: "flex w-full mt-3 justify-between",
+          cell: cn(
+            "relative p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-accent [&:has([aria-selected].day-range-end)]:rounded-r-md w-8 flex-shrink-0",
+            props.mode === "range"
+              ? "[&:has(>.day-range-end)]:rounded-r-md [&:has(>.day-range-start)]:rounded-l-md first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md"
+              : "[&:has([aria-selected])]:rounded-md",
+          ),
+          day: cn(
+            buttonVariants({ variant: "ghost" }),
+            "size-8 p-0 font-normal aria-selected:opacity-100",
+          ),
+          day_range_start:
+            "day-range-start aria-selected:bg-primary aria-selected:text-primary-foreground",
+          day_range_end:
+            "day-range-end aria-selected:bg-primary aria-selected:text-primary-foreground",
+          day_selected:
+            "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
+          day_today: "bg-accent text-accent-foreground",
+          day_outside:
+            "day-outside text-muted-foreground aria-selected:text-muted-foreground",
+          day_disabled: "text-muted-foreground opacity-50",
+          day_range_middle:
+            "aria-selected:bg-accent aria-selected:text-accent-foreground",
+          day_hidden: "invisible",
+          ...classNames,
+        }}
+        components={{
+          Weekdays: () => (
+            <tr className="flex w-full justify-between">
+              {["seg", "ter", "qua", "qui", "sex", "sáb", "dom"].map(
+                (day, index) => (
+                  <th
+                    key={index}
+                    className="text-muted-foreground flex w-8 flex-shrink-0 items-center justify-center rounded-md text-[0.8rem] font-normal"
+                  >
+                    {day}
+                  </th>
+                ),
+              )}
+            </tr>
+          ),
+          Chevron: ({
+            orientation,
+            className,
+            ...props
+          }: {
+            // tipagem compatível com react-day-picker v9
+            orientation?: "up" | "down" | "left" | "right" | undefined;
+            className?: string;
+            disabled?: boolean;
+            size?: number;
+            // aceita outras props que o DayPicker pode passar
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            [key: string]: any;
+          }) => {
+            // caso queira suportar 'up'/'down' também -> mapear para icons direita/esquerda
+            if (orientation === "left") {
+              return (
+                <ChevronLeft
+                  className={cn(
+                    "hover:bg-accent hover:text-accent-foreground absolute left-1 h-4 w-4 cursor-pointer rounded-sm transition-colors",
+                    className,
+                  )}
+                  {...props}
+                />
+              );
+            }
+            // para 'right' / 'up' / 'down' / undefined -> usar ChevronRight por padrão
             return (
-              <ChevronLeft className={cn("h-4 w-4", className)} {...props} />
+              <ChevronRight
+                className={cn(
+                  "hover:bg-accent hover:text-accent-foreground absolute right-0 h-4 w-4 cursor-pointer rounded-sm transition-colors",
+                  className,
+                )}
+                {...props}
+              />
             );
-          }
-          // para 'right' / 'up' / 'down' / undefined -> usar ChevronRight por padrão
-          return (
-            <ChevronRight className={cn("h-4 w-4", className)} {...props} />
-          );
-        },
-      }}
-      {...props}
-    />
+          },
+        }}
+        {...props}
+      />
+    </div>
   );
 }
 
