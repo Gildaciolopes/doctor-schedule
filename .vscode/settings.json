@@ -12,5 +12,8 @@
   ],
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
+  },
+  "files.exclude": {
+    "**/node_modules/react-day-picker/tsconfig.json": true
   }
 }
