@@ -17,8 +17,8 @@ const Testimonials = () => {
         <div className="grid gap-8 md:grid-cols-3">
           {[
             {
-              name: "Dra. Vitória Alves",
-              specialty: "Neuropsicóloga",
+              name: "Dra. Izadora Alves",
+              specialty: "Pediatra",
               text: "O Doctor Schedule revolucionou minha prática. Agora posso focar 100% nos meus pacientes.",
               rating: 5,
             },
