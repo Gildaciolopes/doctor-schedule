@@ -62,29 +62,33 @@ export function SubscriptionPlan({
 
   return (
     <div
-      className={`${className ?? ""} bg-card overflow-hidden rounded-2xl border shadow-lg`}
+      className={`${className ?? ""} bg-card overflow-hidden rounded-2xl border shadow-sm`}
     >
-      {/* Card Header */}
-      <div className="bg-gradient-to-br from-violet-600 to-pink-600 px-6 py-6">
+      {/* Card Header — usa bg-primary do design system */}
+      <div className="bg-primary px-6 py-6">
         <div className="flex items-start justify-between">
           <div>
-            <p className="mb-1 text-xs font-medium tracking-widest text-violet-200 uppercase">
+            <p className="text-primary-foreground/70 mb-1 text-xs font-medium tracking-widest uppercase">
               Plano
             </p>
-            <h3 className="text-2xl font-bold text-white">Essential</h3>
+            <h3 className="text-primary-foreground text-2xl font-bold">
+              Essential
+            </h3>
           </div>
           {active && (
-            <Badge className="border-white/30 bg-white/20 text-xs text-white hover:bg-white/20">
+            <Badge className="border-primary-foreground/30 bg-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/20 text-xs">
               ✓ Ativo
             </Badge>
           )}
         </div>
-        <p className="mt-3 text-sm text-violet-100">
+        <p className="text-primary-foreground/70 mt-3 text-sm">
           Para profissionais autônomos ou pequenas clínicas
         </p>
         <div className="mt-4 flex items-baseline gap-1">
-          <span className="text-4xl font-bold text-white">R$59</span>
-          <span className="text-violet-200">/mês</span>
+          <span className="text-primary-foreground text-4xl font-bold">
+            R$59
+          </span>
+          <span className="text-primary-foreground/70">/mês</span>
         </div>
       </div>
 
@@ -102,7 +106,7 @@ export function SubscriptionPlan({
         <div className="mt-6 space-y-2.5">
           {!active && (
             <Button
-              className="w-full bg-gradient-to-r from-violet-600 to-pink-600 font-medium text-white shadow-md transition-all hover:from-violet-700 hover:to-pink-700 hover:shadow-lg"
+              className="w-full"
               size="lg"
               onClick={() => activateTrialAction.execute()}
               disabled={activateTrialAction.isExecuting}

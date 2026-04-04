@@ -28,25 +28,21 @@ const SubscriptionPage = async () => {
       icon: Clock,
       title: "Economize 15h/semana",
       description: "Automatize tarefas administrativas repetitivas",
-      color: "from-blue-500 to-cyan-400",
     },
     {
       icon: TrendingUp,
       title: "Aumente sua receita",
       description: "Reduza faltas e otimize sua agenda",
-      color: "from-violet-500 to-purple-400",
     },
     {
       icon: Users,
       title: "Pacientes satisfeitos",
       description: "Lembretes automáticos e confirmações",
-      color: "from-emerald-500 to-teal-400",
     },
     {
       icon: Shield,
       title: "Segurança garantida",
       description: "Dados protegidos com criptografia",
-      color: "from-orange-500 to-amber-400",
     },
   ];
 
@@ -70,9 +66,7 @@ const SubscriptionPage = async () => {
                 {/* Hero heading */}
                 <div className="space-y-4">
                   <h2 className="text-4xl leading-[1.15] font-bold tracking-tight text-balance">
-                    <span className="bg-gradient-to-r from-blue-500 via-violet-500 to-pink-500 bg-clip-text text-transparent">
-                      Desbloqueie
-                    </span>{" "}
+                    <span className="text-primary">Desbloqueie</span>{" "}
                     <span className="text-foreground">
                       todo o potencial da sua clínica
                     </span>
@@ -85,11 +79,11 @@ const SubscriptionPage = async () => {
                 </div>
 
                 {/* Alert Banner */}
-                <div className="flex items-start gap-3 rounded-xl border border-amber-200/60 bg-amber-50/80 px-4 py-3.5 dark:border-amber-700/40 dark:bg-amber-950/30">
-                  <Rocket className="mt-0.5 h-4 w-4 shrink-0 text-amber-600 dark:text-amber-400" />
-                  <p className="text-sm leading-relaxed text-amber-800 dark:text-amber-200">
-                    <strong className="font-semibold">
-                      💡 Profissionais economizam em média 15 horas por semana
+                <div className="bg-primary/5 border-primary/20 flex items-start gap-3 rounded-xl border px-4 py-3.5">
+                  <Rocket className="text-primary mt-0.5 h-4 w-4 shrink-0" />
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    <strong className="text-foreground font-semibold">
+                      Profissionais economizam em média 15 horas por semana
                     </strong>{" "}
                     em tarefas administrativas. Não perca mais tempo!
                   </p>
@@ -100,12 +94,10 @@ const SubscriptionPage = async () => {
                   {benefits.map((benefit, index) => (
                     <div
                       key={index}
-                      className="group bg-muted/40 dark:bg-card hover:border-border flex flex-col gap-3 rounded-xl border border-transparent p-5 transition-all duration-200 hover:shadow-sm"
+                      className="bg-muted/40 dark:bg-card hover:border-border flex flex-col gap-3 rounded-xl border border-transparent p-5 transition-all duration-200 hover:shadow-sm"
                     >
-                      <div
-                        className={`flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br ${benefit.color} shrink-0 shadow-sm`}
-                      >
-                        <benefit.icon className="h-5 w-5 text-white" />
+                      <div className="bg-primary/10 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg">
+                        <benefit.icon className="text-primary h-5 w-5" />
                       </div>
                       <div>
                         <h3 className="mb-1 text-sm leading-snug font-semibold">
@@ -122,11 +114,11 @@ const SubscriptionPage = async () => {
                 {/* Guarantees */}
                 <div className="flex flex-wrap items-center gap-5">
                   <div className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 shrink-0 text-emerald-500" />
+                    <CheckCircle className="text-primary h-4 w-4 shrink-0" />
                     <span className="text-sm font-medium">30 dias grátis</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 shrink-0 text-emerald-500" />
+                    <CheckCircle className="text-primary h-4 w-4 shrink-0" />
                     <span className="text-sm font-medium">
                       Cancele quando quiser
                     </span>
