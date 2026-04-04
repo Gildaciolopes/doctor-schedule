@@ -162,8 +162,8 @@ function FormatCard({ format, selected, onSelect }: FormatCardProps) {
         "relative flex cursor-pointer flex-col items-center gap-3 rounded-xl border-2 px-4 py-5 text-left transition-all duration-150 select-none",
         selected
           ? isExcel
-            ? "border-emerald-500 bg-emerald-50/60"
-            : "border-rose-500 bg-rose-50/60"
+            ? "border-emerald-500 bg-emerald-50/60 dark:bg-emerald-950/40"
+            : "border-rose-500 bg-rose-50/60 dark:bg-rose-950/40"
           : "border-border bg-muted/30 hover:bg-muted/60",
       ].join(" ")}
     >
@@ -185,7 +185,11 @@ function FormatCard({ format, selected, onSelect }: FormatCardProps) {
       <div
         className={[
           "flex h-12 w-12 items-center justify-center rounded-xl transition-all duration-150",
-          selected ? (isExcel ? "bg-emerald-100" : "bg-rose-100") : "bg-muted",
+          selected
+            ? isExcel
+              ? "bg-emerald-100 dark:bg-emerald-900/50"
+              : "bg-rose-100 dark:bg-rose-900/50"
+            : "bg-muted",
         ].join(" ")}
       >
         <Icon
@@ -193,8 +197,8 @@ function FormatCard({ format, selected, onSelect }: FormatCardProps) {
             "h-6 w-6 transition-colors duration-150",
             selected
               ? isExcel
-                ? "text-emerald-600"
-                : "text-rose-500"
+                ? "text-emerald-600 dark:text-emerald-400"
+                : "text-rose-500 dark:text-rose-400"
               : "text-muted-foreground",
           ].join(" ")}
         />
@@ -215,8 +219,8 @@ function FormatCard({ format, selected, onSelect }: FormatCardProps) {
             "rounded px-1.5 py-0.5 font-mono text-[10px] font-medium transition-all duration-150",
             selected
               ? isExcel
-                ? "bg-emerald-100 text-emerald-700"
-                : "bg-rose-100 text-rose-600"
+                ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-400"
+                : "bg-rose-100 text-rose-600 dark:bg-rose-900/50 dark:text-rose-400"
               : "bg-muted text-muted-foreground",
           ].join(" ")}
         >
@@ -228,7 +232,7 @@ function FormatCard({ format, selected, onSelect }: FormatCardProps) {
       <p
         className={[
           "text-center text-[11px] leading-snug transition-colors duration-150",
-          selected ? "text-muted-foreground" : "text-muted-foreground/50",
+          selected ? "text-muted-foreground" : "text-muted-foreground/60",
         ].join(" ")}
       >
         {description}
