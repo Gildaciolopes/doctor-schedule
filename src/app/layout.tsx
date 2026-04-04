@@ -58,9 +58,7 @@ export const metadata: Metadata = {
     "LGPD",
     "prontuário eletrônico",
   ],
-  authors: [
-    { name: "Gildácio Lopes", url: "https://gildaciolopes.netlify.app" },
-  ],
+  authors: [{ name: "Gildácio Lopes", url: "https://gildacio.com" }],
 };
 
 export default function RootLayout({
