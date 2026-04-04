@@ -9,7 +9,6 @@ import { activateTrial } from "@/actions/activate-trial";
 import { createStripeCheckout } from "@/actions/create-stripe-checkout";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 interface SubscriptionPlanProps {
   active?: boolean;
@@ -23,6 +22,7 @@ export function SubscriptionPlan({
   userEmail,
 }: SubscriptionPlanProps) {
   const router = useRouter();
+
   const createStripeCheckoutAction = useAction(createStripeCheckout, {
     onSuccess: async ({ data }) => {
       if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
@@ -31,15 +31,9 @@ export function SubscriptionPlan({
       const stripe = await loadStripe(
         process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
       );
-      if (!stripe) {
-        throw new Error("Stripe not found");
-      }
-      if (!data?.sessionId) {
-        throw new Error("Session ID not found");
-      }
-      await stripe.redirectToCheckout({
-        sessionId: data.sessionId,
-      });
+      if (!stripe) throw new Error("Stripe not found");
+      if (!data?.sessionId) throw new Error("Session ID not found");
+      await stripe.redirectToCheckout({ sessionId: data.sessionId });
     },
   });
 
@@ -66,65 +60,62 @@ export function SubscriptionPlan({
     "Suporte via e-mail",
   ];
 
-  const handleSubscribeClick = () => {
-    createStripeCheckoutAction.execute();
-  };
-
-  const handleManagePlanClick = () => {
-    router.push(
-      `${process.env.NEXT_PUBLIC_STRIPE_CUSTOMER_PORTAL_URL}?prefilled_email=${userEmail}`,
-    );
-  };
-
   return (
-    <Card
-      className={`${className} from-background via-background to-muted/20 border-2 bg-gradient-to-br shadow-xl`}
+    <div
+      className={`${className ?? ""} bg-card overflow-hidden rounded-2xl border shadow-sm`}
     >
-      <CardHeader className="space-y-4 pb-8">
-        <div className="flex items-center justify-between">
-          <h3 className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-3xl font-bold text-transparent dark:from-purple-400 dark:to-pink-400">
-            Essential
-          </h3>
+      {/* Card Header — usa bg-primary do design system */}
+      <div className="bg-primary px-6 py-6">
+        <div className="flex items-start justify-between">
+          <div>
+            <p className="text-primary-foreground/70 mb-1 text-xs font-medium tracking-widest uppercase">
+              Plano
+            </p>
+            <h3 className="text-primary-foreground text-2xl font-bold">
+              Essential
+            </h3>
+          </div>
           {active && (
-            <Badge className="bg-green-100 text-green-700 hover:bg-green-100 dark:bg-green-900/30 dark:text-green-400 dark:hover:bg-green-900/30">
-              ✓ Plano Atual
+            <Badge className="border-primary-foreground/30 bg-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/20 text-xs">
+              ✓ Ativo
             </Badge>
           )}
         </div>
-        <p className="text-muted-foreground text-base">
+        <p className="text-primary-foreground/70 mt-3 text-sm">
           Para profissionais autônomos ou pequenas clínicas
         </p>
-        <div className="flex items-baseline gap-1">
-          <span className="text-5xl font-bold">R$59</span>
-          <span className="text-muted-foreground text-lg">/ mês</span>
+        <div className="mt-4 flex items-baseline gap-1">
+          <span className="text-primary-foreground text-4xl font-bold">
+            R$59
+          </span>
+          <span className="text-primary-foreground/70">/mês</span>
         </div>
-      </CardHeader>
+      </div>
 
-      <CardContent className="space-y-6">
-        <div className="space-y-3.5 border-t pt-6">
+      {/* Card Body */}
+      <div className="px-6 py-6">
+        <ul className="space-y-3">
           {features.map((feature, index) => (
-            <div key={index} className="flex items-center gap-3">
-              <div className="mt-0.5 flex-shrink-0">
-                <CheckCircle2 className="h-5 w-5 text-green-500 dark:text-purple-400" />
-              </div>
-              <p className="text-sm font-medium">{feature}</p>
-            </div>
+            <li key={index} className="flex items-center gap-3">
+              <CheckCircle2 className="text-primary h-4 w-4 shrink-0" />
+              <span className="text-sm">{feature}</span>
+            </li>
           ))}
-        </div>
+        </ul>
 
-        <div className="space-y-3 pt-4">
+        <div className="mt-6 space-y-2.5">
           {!active && (
             <Button
-              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg transition-all hover:from-purple-700 hover:to-pink-700 hover:shadow-xl"
+              className="w-full"
               size="lg"
               onClick={() => activateTrialAction.execute()}
               disabled={activateTrialAction.isExecuting}
             >
               {activateTrialAction.isExecuting ? (
-                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               ) : (
                 <>
-                  <Sparkles className="mr-2 h-5 w-5" />
+                  <Sparkles className="mr-2 h-4 w-4" />
                   Começar Teste Grátis de 30 Dias
                 </>
               )}
@@ -134,11 +125,18 @@ export function SubscriptionPlan({
             className="w-full"
             variant={active ? "default" : "outline"}
             size="lg"
-            onClick={active ? handleManagePlanClick : handleSubscribeClick}
+            onClick={
+              active
+                ? () =>
+                    router.push(
+                      `${process.env.NEXT_PUBLIC_STRIPE_CUSTOMER_PORTAL_URL}?prefilled_email=${userEmail}`,
+                    )
+                : () => createStripeCheckoutAction.execute()
+            }
             disabled={createStripeCheckoutAction.isExecuting}
           >
             {createStripeCheckoutAction.isExecuting ? (
-              <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             ) : active ? (
               "Gerenciar assinatura"
             ) : (
@@ -146,7 +144,7 @@ export function SubscriptionPlan({
             )}
           </Button>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }

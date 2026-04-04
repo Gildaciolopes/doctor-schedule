@@ -1,15 +1,12 @@
 import { ArrowRight, CheckCircle } from "lucide-react";
-import { headers } from "next/headers";
 import Link from "next/link";
 
-import { auth } from "@/lib/auth";
+import { getSession } from "@/lib/get-session";
 
 import NextAppointmentsCard from "./next-appointments-card";
 
 const Hero = async () => {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const session = await getSession();
 
   return (
     <section className="px-6 pt-24 pb-16">

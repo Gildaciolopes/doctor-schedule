@@ -1,6 +1,5 @@
 import dayjs from "dayjs";
 import { Calendar } from "lucide-react";
-import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -16,7 +15,7 @@ import {
 } from "@/components/ui/page-container";
 import { getDashboard } from "@/data/get-dashboard";
 import WithAuthentication from "@/hocs/with-authentication";
-import { auth } from "@/lib/auth";
+import { getSession } from "@/lib/get-session";
 
 import { appointmentsTableColumns } from "../appointments/_components/table-columns";
 import AppointmentsChart from "./_components/appointments-chart";
@@ -33,15 +32,17 @@ interface DashboardPageProps {
 }
 
 const DashboardPage = async ({ searchParams }: DashboardPageProps) => {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
-  const { from, to } = await searchParams;
-  if (!from || !to) {
-    redirect(
-      `/dashboard?from=${dayjs().format("YYYY-MM-DD")}&to=${dayjs().add(1, "month").format("YYYY-MM-DD")}`,
-    );
-  }
+  // Inicia session e searchParams em paralelo — ambos são independentes
+  const [session, resolvedSearchParams] = await Promise.all([
+    getSession(),
+    searchParams,
+  ]);
+
+  // Usa defaults quando os params estão ausentes — evita redirect que causava flash preto
+  const from = resolvedSearchParams.from ?? dayjs().format("YYYY-MM-DD");
+  const to =
+    resolvedSearchParams.to ?? dayjs().add(1, "month").format("YYYY-MM-DD");
+
   if (!session?.user?.clinic) {
     redirect("/clinic-form");
   }
