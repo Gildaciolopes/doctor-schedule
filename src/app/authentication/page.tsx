@@ -1,11 +1,10 @@
 import { ChevronLeft } from "lucide-react";
-import { headers } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { auth } from "@/lib/auth";
+import { getSession } from "@/lib/get-session";
 
 import LoginForm from "./components/login-form";
 import SignUpForm from "./components/sign-up-form";
@@ -15,9 +14,7 @@ const AuthenticationPage = async ({
 }: {
   searchParams: Promise<{ demo?: string }>;
 }) => {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const session = await getSession();
   if (session?.user) {
     redirect("/dashboard");
   }

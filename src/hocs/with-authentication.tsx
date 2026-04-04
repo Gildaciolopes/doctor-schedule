@@ -3,11 +3,10 @@
 // mas antes de renderizá-lo, executa alguma ação
 // ou, passa alguma prop extra pra esse componente
 
-import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { hasValidAccess } from "@/helpers/demo-trial";
-import { auth } from "@/lib/auth";
+import { getSession } from "@/lib/get-session";
 
 const WithAuthentication = async ({
   children,
@@ -18,9 +17,7 @@ const WithAuthentication = async ({
   mustHavePlan?: boolean;
   mustHaveClinic?: boolean;
 }) => {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const session = await getSession();
   if (!session?.user) {
     redirect("/authentication");
   }

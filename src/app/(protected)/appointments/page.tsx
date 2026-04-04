@@ -1,5 +1,4 @@
 import { eq } from "drizzle-orm";
-import { headers } from "next/headers";
 
 import { DataTable } from "@/components/ui/data-table";
 import {
@@ -14,15 +13,13 @@ import {
 import { db } from "@/db";
 import { appointmentsTable, doctorsTable, patientsTable } from "@/db/schema";
 import WithAuthentication from "@/hocs/with-authentication";
-import { auth } from "@/lib/auth";
+import { getSession } from "@/lib/get-session";
 
 import AddAppointmentButton from "./_components/add-appointment-button";
 import { appointmentsTableColumns } from "./_components/table-columns";
 
 const AppointmentsPage = async () => {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const session = await getSession();
 
   const [patients, doctors, appointments] = await Promise.all([
     db.query.patientsTable.findMany({

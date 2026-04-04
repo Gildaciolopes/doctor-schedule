@@ -6,7 +6,6 @@ import {
   TrendingUp,
   Users,
 } from "lucide-react";
-import { headers } from "next/headers";
 
 import {
   PageContainer,
@@ -17,14 +16,12 @@ import {
   PageTitle,
 } from "@/components/ui/page-container";
 import WithAuthentication from "@/hocs/with-authentication";
-import { auth } from "@/lib/auth";
+import { getSession } from "@/lib/get-session";
 
 import { SubscriptionPlan } from "./_components/subscription-plan";
 
 const SubscriptionPage = async () => {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const session = await getSession();
 
   const benefits = [
     {

@@ -1,5 +1,4 @@
 import { eq } from "drizzle-orm";
-import { headers } from "next/headers";
 
 import {
   PageActions,
@@ -13,15 +12,13 @@ import {
 import { db } from "@/db";
 import { doctorsTable } from "@/db/schema";
 import WithAuthentication from "@/hocs/with-authentication";
-import { auth } from "@/lib/auth";
+import { getSession } from "@/lib/get-session";
 
 import AddDoctorButton from "./_components/add-doctor-button";
 import DoctorCard from "./_components/doctor-card";
 
 const DoctorsPage = async () => {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const session = await getSession();
 
   const doctors = await db.query.doctorsTable.findMany({
     where: eq(doctorsTable.clinicId, session!.user.clinic!.id),

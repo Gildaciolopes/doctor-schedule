@@ -1,10 +1,8 @@
-import { headers } from "next/headers";
-
 import { DemoUserHandler } from "@/components/demo-user-handler";
 import { TrialExpiredBanner } from "@/components/trial-expired-banner";
 import { TrialNotification } from "@/components/trial-notification";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { auth } from "@/lib/auth";
+import { getSession } from "@/lib/get-session";
 
 import { AppSidebar } from "./_components/app-sidebar";
 
@@ -13,9 +11,7 @@ export default async function Layout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const session = await getSession();
 
   return (
     <SidebarProvider>
