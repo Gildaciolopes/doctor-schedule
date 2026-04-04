@@ -1,6 +1,9 @@
+import { ChevronLeft } from "lucide-react";
 import { headers } from "next/headers";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
+import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { auth } from "@/lib/auth";
 
@@ -25,6 +28,16 @@ const AuthenticationPage = async ({
   return (
     <div className="flex h-screen w-screen items-center justify-center">
       <div className="w-[400px]">
+        <Button
+          asChild
+          variant="ghost"
+          className="text-muted-foreground hover:text-foreground mb-4 -ml-2 gap-1"
+        >
+          <Link href="/">
+            <ChevronLeft className="h-4 w-4" />
+            Voltar
+          </Link>
+        </Button>
         {isDemo && (
           <div className="mb-6 rounded-lg bg-gradient-to-r from-blue-50 to-purple-50 p-4 text-center dark:from-blue-900/20 dark:to-purple-900/20">
             <h2 className="text-lg font-semibold text-blue-600 dark:text-blue-400">
