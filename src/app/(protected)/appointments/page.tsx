@@ -1,5 +1,6 @@
 import { eq } from "drizzle-orm";
 
+import { ExportButton } from "@/components/export-button";
 import { DataTable } from "@/components/ui/data-table";
 import {
   PageActions,
@@ -48,6 +49,7 @@ const AppointmentsPage = async () => {
             </PageDescription>
           </PageHeaderContent>
           <PageActions>
+            <ExportButton entity="appointments" />
             <AddAppointmentButton patients={patients} doctors={doctors} />
           </PageActions>
         </PageHeader>
