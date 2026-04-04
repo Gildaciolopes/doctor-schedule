@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
       fullUrl: true,
     },
   },
+  serverExternalPackages: ["pdfkit"],
 };
 
 export default nextConfig;

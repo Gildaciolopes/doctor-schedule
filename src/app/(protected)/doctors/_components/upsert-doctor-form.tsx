@@ -113,17 +113,24 @@ const UpsertDoctorForm = ({
 
   const upsertDoctorAction = useAction(upsertDoctor, {
     onSuccess: () => {
-      toast.success("Médico adicionado com sucesso.");
+      toast.success(
+        doctor
+          ? "Médico atualizado com sucesso."
+          : "Médico adicionado com sucesso.",
+      );
       onSuccess?.();
     },
     onError: () => {
-      toast.error("Erro ao adicionar médico.");
+      toast.error(
+        doctor ? "Erro ao atualizar médico." : "Erro ao adicionar médico.",
+      );
     },
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     upsertDoctorAction.execute({
       ...values,
+      id: doctor?.id,
       availableFromWeekDay: parseInt(values.availableFromWeekDay),
       availableToWeekDay: parseInt(values.availableToWeekDay),
       appointmentPriceInCents: values.appointmentPrice * 100,
@@ -133,8 +140,14 @@ const UpsertDoctorForm = ({
   return (
     <DialogContent>
       <DialogHeader>
-        <DialogTitle>Adicionar médico</DialogTitle>
-        <DialogDescription>Adicione um novo médico.</DialogDescription>
+        <DialogTitle>
+          {doctor ? "Editar médico" : "Adicionar médico"}
+        </DialogTitle>
+        <DialogDescription>
+          {doctor
+            ? "Edite as informações do médico."
+            : "Adicione um novo médico."}
+        </DialogDescription>
       </DialogHeader>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -405,7 +418,13 @@ const UpsertDoctorForm = ({
           />
           <DialogFooter>
             <Button type="submit" disabled={upsertDoctorAction.isPending}>
-              {upsertDoctorAction.isPending ? "Adicionando..." : "Adicionar"}
+              {upsertDoctorAction.isPending
+                ? doctor
+                  ? "Salvando..."
+                  : "Adicionando..."
+                : doctor
+                  ? "Salvar alterações"
+                  : "Adicionar médico"}
             </Button>
           </DialogFooter>
         </form>
