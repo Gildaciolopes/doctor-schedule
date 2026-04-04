@@ -1,5 +1,6 @@
 import { eq } from "drizzle-orm";
 
+import { ExportButton } from "@/components/export-button";
 import {
   PageActions,
   PageContainer,
@@ -34,6 +35,7 @@ const DoctorsPage = async () => {
             </PageDescription>
           </PageHeaderContent>
           <PageActions>
+            <ExportButton entity="doctors" />
             <AddDoctorButton />
           </PageActions>
         </PageHeader>
