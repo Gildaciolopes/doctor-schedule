@@ -8,7 +8,6 @@ import {
 } from "lucide-react";
 import { headers } from "next/headers";
 
-import { Alert, AlertDescription } from "@/components/ui/alert";
 import {
   PageContainer,
   PageContent,
@@ -32,25 +31,25 @@ const SubscriptionPage = async () => {
       icon: Clock,
       title: "Economize 15h/semana",
       description: "Automatize tarefas administrativas repetitivas",
-      color: "from-blue-500 to-cyan-500",
+      color: "from-blue-500 to-cyan-400",
     },
     {
       icon: TrendingUp,
       title: "Aumente sua receita",
       description: "Reduza faltas e otimize sua agenda",
-      color: "from-purple-500 to-pink-500",
+      color: "from-violet-500 to-purple-400",
     },
     {
       icon: Users,
       title: "Pacientes satisfeitos",
       description: "Lembretes automáticos e confirmações",
-      color: "from-green-500 to-teal-500",
+      color: "from-emerald-500 to-teal-400",
     },
     {
       icon: Shield,
       title: "Segurança garantida",
       description: "Dados protegidos com criptografia",
-      color: "from-orange-500 to-red-500",
+      color: "from-orange-500 to-amber-400",
     },
   ];
 
@@ -65,23 +64,23 @@ const SubscriptionPage = async () => {
             </PageDescription>
           </PageHeaderContent>
         </PageHeader>
+
         <PageContent>
-          <div className="mx-auto max-w-7xl space-y-12 pb-12">
-            {/* Hero Section with Grid */}
-            <div className="grid items-start gap-8 lg:grid-cols-2">
-              {/* Left Column - Content */}
-              <div className="space-y-8">
-                <div className="space-y-6">
-                  <h2 className="text-5xl leading-tight font-bold">
-                    <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+          <div className="pb-8">
+            <div className="grid items-start gap-10 lg:grid-cols-[1fr_380px] xl:grid-cols-[1fr_420px]">
+              {/* Left Column */}
+              <div className="flex flex-col gap-8">
+                {/* Hero heading */}
+                <div className="space-y-4">
+                  <h2 className="text-4xl leading-[1.15] font-bold tracking-tight text-balance">
+                    <span className="bg-gradient-to-r from-blue-500 via-violet-500 to-pink-500 bg-clip-text text-transparent">
                       Desbloqueie
-                    </span>
-                    <br />
+                    </span>{" "}
                     <span className="text-foreground">
                       todo o potencial da sua clínica
                     </span>
                   </h2>
-                  <p className="text-muted-foreground text-xl leading-relaxed">
+                  <p className="text-muted-foreground max-w-lg text-lg leading-relaxed">
                     Transforme a gestão do seu consultório com tecnologia de
                     ponta. Mais tempo para cuidar dos pacientes, menos tempo com
                     papelada.
@@ -89,53 +88,57 @@ const SubscriptionPage = async () => {
                 </div>
 
                 {/* Alert Banner */}
-                <Alert className="border-amber-200 bg-gradient-to-r from-amber-50 to-orange-50 dark:border-amber-800 dark:from-amber-950/20 dark:to-orange-950/20">
-                  <Rocket className="h-5 w-5 text-amber-600 dark:text-amber-500" />
-                  <AlertDescription className="text-amber-800 dark:text-amber-200">
-                    <strong>
+                <div className="flex items-start gap-3 rounded-xl border border-amber-200/60 bg-amber-50/80 px-4 py-3.5 dark:border-amber-700/40 dark:bg-amber-950/30">
+                  <Rocket className="mt-0.5 h-4 w-4 shrink-0 text-amber-600 dark:text-amber-400" />
+                  <p className="text-sm leading-relaxed text-amber-800 dark:text-amber-200">
+                    <strong className="font-semibold">
                       💡 Profissionais economizam em média 15 horas por semana
                     </strong>{" "}
                     em tarefas administrativas. Não perca mais tempo!
-                  </AlertDescription>
-                </Alert>
+                  </p>
+                </div>
 
                 {/* Benefits Grid */}
-                <div className="grid gap-4 sm:grid-cols-2">
+                <div className="grid grid-cols-2 gap-3">
                   {benefits.map((benefit, index) => (
                     <div
                       key={index}
-                      className="group bg-muted/50 dark:bg-card transform rounded-xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                      className="group bg-muted/40 dark:bg-card hover:border-border flex flex-col gap-3 rounded-xl border border-transparent p-5 transition-all duration-200 hover:shadow-sm"
                     >
                       <div
-                        className={`mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-r ${benefit.color} transition-transform duration-300 group-hover:scale-110`}
+                        className={`flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br ${benefit.color} shrink-0 shadow-sm`}
                       >
-                        <benefit.icon className="h-6 w-6 text-white" />
+                        <benefit.icon className="h-5 w-5 text-white" />
                       </div>
-                      <h3 className="mb-2 text-lg font-semibold">
-                        {benefit.title}
-                      </h3>
-                      <p className="text-muted-foreground text-sm">
-                        {benefit.description}
-                      </p>
+                      <div>
+                        <h3 className="mb-1 text-sm leading-snug font-semibold">
+                          {benefit.title}
+                        </h3>
+                        <p className="text-muted-foreground text-xs leading-relaxed">
+                          {benefit.description}
+                        </p>
+                      </div>
                     </div>
                   ))}
                 </div>
 
-                {/* Stats */}
-                <div className="flex flex-wrap items-center gap-6 pt-4">
-                  <div className="flex items-center space-x-2">
-                    <CheckCircle className="h-5 w-5 text-green-500" />
-                    <span className="font-medium">30 dias grátis</span>
+                {/* Guarantees */}
+                <div className="flex flex-wrap items-center gap-5">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 shrink-0 text-emerald-500" />
+                    <span className="text-sm font-medium">30 dias grátis</span>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <CheckCircle className="h-5 w-5 text-green-500" />
-                    <span className="font-medium">Cancele quando quiser</span>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 shrink-0 text-emerald-500" />
+                    <span className="text-sm font-medium">
+                      Cancele quando quiser
+                    </span>
                   </div>
                 </div>
               </div>
 
-              {/* Right Column - Pricing Card */}
-              <div className="lg:sticky lg:top-8">
+              {/* Right Column — Pricing Card */}
+              <div className="lg:sticky lg:top-6">
                 <SubscriptionPlan
                   active={session!.user.plan === "essential"}
                   userEmail={session!.user.email}
@@ -143,16 +146,14 @@ const SubscriptionPage = async () => {
               </div>
             </div>
 
-            {/* Footer Text */}
-            <div className="border-t pt-8">
-              <p className="text-muted-foreground text-center">
-                Junte-se a mais de{" "}
-                <strong className="text-foreground">
-                  2.000 profissionais de saúde
-                </strong>{" "}
-                que já transformaram sua rotina.
-              </p>
-            </div>
+            {/* Footer */}
+            <p className="text-muted-foreground mt-10 border-t pt-6 text-center text-sm">
+              Junte-se a mais de{" "}
+              <strong className="text-foreground font-semibold">
+                2.000 profissionais de saúde
+              </strong>{" "}
+              que já transformaram sua rotina com nossa solução.
+            </p>
           </div>
         </PageContent>
       </PageContainer>
