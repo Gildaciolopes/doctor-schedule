@@ -101,7 +101,7 @@ const Footer = () => {
           <p>
             &copy; {currentYear} Dr Schedule. Desenvolvido por
             <span className="text-primary font-semibold">
-              <a href="https://gildaciolopes.netlify.app" target="_blank">
+              <a href="https://gildacio.com" target="_blank">
                 {" "}
                 Gildácio Lopes
               </a>
