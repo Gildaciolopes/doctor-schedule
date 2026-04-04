@@ -32,7 +32,11 @@ export async function POST(request: NextRequest) {
       })
       .where(eq(usersTable.id, session.user.id));
 
-    return NextResponse.json({ success: true });
+    // Limpa o cookie de cache da sessão do better-auth para forçar releitura do DB
+    // na próxima chamada a getSession (evita race condition no fluxo de demo).
+    const response = NextResponse.json({ success: true });
+    response.cookies.delete("better-auth.session_data");
+    return response;
   } catch (error) {
     console.error("Erro ao atualizar status demo:", error);
     return NextResponse.json(

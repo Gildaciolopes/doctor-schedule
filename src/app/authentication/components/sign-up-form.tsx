@@ -49,12 +49,21 @@ const SignUpForm = () => {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof registerSchema>) {
-    // Armazenar informação de demo no localStorage antes do cadastro
-    if (isDemo) {
+  const activateDemoIfNeeded = async () => {
+    if (!isDemo) return;
+    try {
+      await fetch("/api/auth/update-demo-status", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ isDemoUser: true }),
+      });
+    } catch {
+      // silencia erro — o DemoUserHandler fará nova tentativa via localStorage
       localStorage.setItem("isDemoUser", "true");
     }
+  };
 
+  async function onSubmit(values: z.infer<typeof registerSchema>) {
     await authClient.signUp.email(
       {
         email: values.email,
@@ -62,7 +71,8 @@ const SignUpForm = () => {
         name: values.name,
       },
       {
-        onSuccess: () => {
+        onSuccess: async () => {
+          await activateDemoIfNeeded();
           router.push("/dashboard");
         },
         onError: (ctx) => {
@@ -77,13 +87,9 @@ const SignUpForm = () => {
   }
 
   const handleGoogleSignUp = async () => {
-    if (isDemo) {
-      localStorage.setItem("isDemoUser", "true");
-    }
-
     await authClient.signIn.social({
       provider: "google",
-      callbackURL: "/dashboard",
+      callbackURL: isDemo ? "/api/activate-demo" : "/dashboard",
       scopes: ["email", "profile"],
     });
   };
