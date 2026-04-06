@@ -1,4 +1,4 @@
-import { ArrowRight, CheckCircle } from "lucide-react";
+import { ArrowRight, CheckCircle, Sparkles } from "lucide-react";
 import Link from "next/link";
 
 import { getSession } from "@/lib/get-session";
@@ -9,58 +9,78 @@ const Hero = async () => {
   const session = await getSession();
 
   return (
-    <section className="px-6 pt-24 pb-16">
+    <section className="relative px-6 pb-24 pt-40">
       <div className="container mx-auto max-w-6xl">
-        <div className="grid items-center gap-12 lg:grid-cols-2">
+        {/* Badge */}
+        <div className="mb-8 flex justify-center lg:justify-start">
+          <div className="inline-flex items-center gap-2 rounded-full border border-blue-500/25 bg-blue-500/10 px-4 py-1.5 backdrop-blur-sm">
+            <Sparkles className="h-3.5 w-3.5 text-blue-500 dark:text-blue-400" />
+            <span className="text-xs font-semibold text-blue-600 dark:text-blue-400">
+              Plataforma #1 em Agendamento Médico
+            </span>
+          </div>
+        </div>
+
+        <div className="grid items-center gap-16 lg:grid-cols-2">
+          {/* Left – copy */}
           <div className="space-y-8">
-            <div className="space-y-6">
-              <h1 className="text-5xl leading-tight font-bold md:text-6xl">
-                <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <div className="space-y-5">
+              <h1 className="text-5xl font-bold leading-[1.08] tracking-tight md:text-6xl lg:text-[4.25rem]">
+                <span className="block bg-gradient-to-br from-blue-500 via-violet-500 to-purple-600 bg-clip-text text-transparent">
                   Revolucione
                 </span>
-                <br />
-                <span className="text-primary dark:text-white">
-                  seus agendamentos médicos
+                <span className="block text-slate-900 dark:text-white">
+                  seus agendamentos
+                </span>
+                <span className="block text-slate-900 dark:text-white">
+                  médicos
                 </span>
               </h1>
-              <p className="text-xl leading-relaxed text-gray-600 dark:text-gray-300">
+              <p className="max-w-lg text-lg leading-relaxed text-slate-500 dark:text-slate-400">
                 Simplifique a gestão de consultas com nossa plataforma
-                intuitiva. Mais tempo para cuidar dos pacientes, menos tempo com
-                papelada.
+                intuitiva. Mais tempo para cuidar dos pacientes, menos tempo
+                com papelada.
               </p>
             </div>
 
-            <div className="flex flex-col gap-4 sm:flex-row">
+            {/* CTAs */}
+            <div className="flex flex-col gap-3 sm:flex-row">
               <Link href="/authentication">
-                <button className="group flex transform items-center justify-center space-x-2 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 px-8 py-4 text-lg font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:cursor-pointer hover:shadow-xl">
-                  <span>{`${session ? "Dashboard" : "Login"}`}</span>
-                  <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                <button className="group flex items-center gap-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/30 transition-all duration-300 hover:-translate-y-px hover:cursor-pointer hover:shadow-xl hover:shadow-blue-500/45">
+                  <span>{session ? "Ir ao Dashboard" : "Começar Grátis"}</span>
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </button>
               </Link>
               <Link href="/authentication?demo=true">
-                <button className="dark:hover:text-primary rounded-full border-2 border-gray-300 px-8 py-4 text-lg font-semibold text-gray-700 transition-all duration-300 hover:cursor-pointer hover:border-blue-600 hover:text-blue-600 dark:border-gray-300 dark:text-gray-300 dark:hover:border-white">
+                <button className="rounded-xl border border-slate-200 bg-white/60 px-7 py-3.5 text-sm font-semibold text-slate-700 backdrop-blur-sm transition-all duration-300 hover:-translate-y-px hover:cursor-pointer hover:bg-white hover:shadow-md dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:bg-white/10">
                   Ver Demonstração
                 </button>
               </Link>
             </div>
 
-            <div className="flex items-center space-x-8 pt-4">
-              <div className="flex items-center space-x-2">
-                <CheckCircle className="h-5 w-5 text-green-500" />
-                <span className="text-gray-600 dark:text-white">
-                  Grátis por 30 dias
-                </span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <CheckCircle className="h-5 w-5 text-green-500" />
-                <span className="text-gray-600 dark:text-white">
-                  Controle de Agendamentos
-                </span>
-              </div>
+            {/* Trust badges */}
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2.5">
+              {[
+                "Grátis por 30 dias",
+                "Controle de Agendamentos",
+                "Cancele quando quiser",
+              ].map((text) => (
+                <div key={text} className="flex items-center gap-1.5">
+                  <CheckCircle className="h-4 w-4 text-green-500" />
+                  <span className="text-sm text-slate-500 dark:text-slate-400">
+                    {text}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
 
-          <NextAppointmentsCard />
+          {/* Right – glass appointments card */}
+          <div className="relative">
+            {/* Glow behind card */}
+            <div className="absolute inset-4 rounded-3xl bg-gradient-to-br from-blue-500/20 to-violet-500/20 blur-3xl" />
+            <NextAppointmentsCard />
+          </div>
         </div>
       </div>
     </section>
