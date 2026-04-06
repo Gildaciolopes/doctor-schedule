@@ -1,5 +1,6 @@
 "use client";
 
+import { ArrowRight } from "lucide-react";
 import { useState } from "react";
 
 const ContactCTA = () => {
@@ -13,42 +14,65 @@ const ContactCTA = () => {
       setTimeout(() => setIsSubmitted(false), 3000);
     }
   };
-  return (
-    <section
-      id="contato"
-      className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 px-6 py-20"
-    >
-      <div className="container mx-auto max-w-4xl text-center">
-        <h2 className="mb-6 text-4xl font-bold text-white md:text-5xl">
-          Pronto para transformar sua clínica?
-        </h2>
-        <p className="mx-auto mb-12 max-w-2xl text-xl text-blue-100">
-          Junte-se a mais de 1.000 médicos que já revolucionaram seus
-          agendamentos
-        </p>
 
-        <div className="mx-auto max-w-md">
-          <div className="flex flex-col gap-4 sm:flex-row">
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Seu melhor e-mail"
-              className="max-w-[210px] flex-1 rounded-full px-4 py-3 text-white placeholder-blue-100 ring-4 ring-white/30 focus:ring-white/40 focus:outline-none"
-            />
-            <button
-              onClick={handleSubmit}
-              className="transform rounded-full bg-white px-8 py-3 text-base font-semibold text-purple-600 transition-all duration-300 hover:-translate-y-1 hover:cursor-pointer hover:shadow-lg"
-            >
-              {isSubmitted ? "Obrigado!" : "Começar Agora"}
-            </button>
+  return (
+    <section id="contato" className="px-6 py-24">
+      <div className="container mx-auto max-w-6xl">
+        {/* Glass CTA box with gradient fill */}
+        <div className="relative overflow-hidden rounded-3xl border-2 border-slate-200/80 p-12 text-center shadow-2xl md:p-16 dark:border-white/10">
+          {/* Frosted glass layer */}
+          <div className="pointer-events-none absolute inset-0 bg-white/5 backdrop-blur-[1px]" />
+
+          {/* Content */}
+          <div className="relative">
+            <div className="mb-3 inline-flex items-center rounded-full border border-slate-200 bg-white/10 px-4 py-1.5 backdrop-blur-sm dark:border-white/10 dark:bg-white/5">
+              <span className="text-xs font-semibold text-slate-600 dark:text-white">
+                Comece hoje mesmo
+              </span>
+            </div>
+
+            <h2 className="mb-4 text-4xl font-bold text-slate-900 md:text-5xl dark:text-white">
+              Pronto para transformar
+              <br />
+              sua clínica?
+            </h2>
+            <p className="mx-auto mb-10 max-w-xl text-base text-slate-600 dark:text-slate-300">
+              Junte-se a mais de 1.000 médicos que já revolucionaram seus
+              agendamentos
+            </p>
+
+            {/* Email capture */}
+            <div className="mx-auto max-w-md">
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Seu melhor e-mail"
+                  className="flex-1 rounded-xl border border-slate-200 bg-white/10 px-5 py-3 text-sm text-slate-900 backdrop-blur-sm transition-colors placeholder:text-slate-400 focus:border-slate-300 focus:bg-white/15 focus:outline-none dark:border-white/10 dark:bg-white/5 dark:text-white dark:placeholder:text-slate-400 dark:focus:border-white/20 dark:focus:bg-white/10"
+                />
+                <button
+                  onClick={handleSubmit}
+                  className="text-primary flex shrink-0 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-6 py-3 text-sm font-semibold transition-all duration-300 hover:-translate-y-px hover:cursor-pointer dark:text-black"
+                >
+                  {isSubmitted ? (
+                    "Obrigado!"
+                  ) : (
+                    <>
+                      Começar Agora
+                      <ArrowRight className="h-4 w-4" />
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+
+            <p className="mt-6 text-xs text-slate-500 dark:text-slate-400">
+              Teste grátis por 30 dias · Controle de Agendamentos · Cancele a
+              qualquer momento
+            </p>
           </div>
         </div>
-
-        <p className="mt-6 text-sm text-blue-100">
-          Teste grátis por 30 dias • Controle de Agendamentos • Cancele a
-          qualquer momento
-        </p>
       </div>
     </section>
   );

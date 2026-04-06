@@ -122,3 +122,80 @@
     @apply bg-background text-foreground font-sans;
   }
 }
+
+/* ── Landing page – animated orbs ─────────────────────────────────── */
+@keyframes landing-float-1 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(40px, -30px) scale(1.08);
+  }
+  66% {
+    transform: translate(-25px, 15px) scale(0.95);
+  }
+}
+@keyframes landing-float-2 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(-35px, 25px) scale(1.05);
+  }
+  66% {
+    transform: translate(20px, -20px) scale(0.97);
+  }
+}
+@keyframes landing-float-3 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(20px, -40px) scale(1.03);
+  }
+}
+@keyframes landing-float-4 {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  40% {
+    transform: translate(-30px, 20px) scale(1.06);
+  }
+  80% {
+    transform: translate(15px, -15px) scale(0.98);
+  }
+}
+
+.landing-orb-1 {
+  animation: landing-float-1 22s ease-in-out infinite;
+}
+.landing-orb-2 {
+  animation: landing-float-2 28s ease-in-out infinite;
+}
+.landing-orb-3 {
+  animation: landing-float-3 20s ease-in-out infinite;
+}
+.landing-orb-4 {
+  animation: landing-float-4 32s ease-in-out infinite;
+}
+
+/* Subtle dot grid texture */
+.landing-grid {
+  background-image: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 0.055) 1px,
+    transparent 1px
+  );
+  background-size: 28px 28px;
+}
+.dark .landing-grid {
+  background-image: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.035) 1px,
+    transparent 1px
+  );
+}

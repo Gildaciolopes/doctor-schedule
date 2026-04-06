@@ -7,108 +7,94 @@ import { useState } from "react";
 
 import { ModeToggle } from "@/components/mode-toggle";
 
+const navLinks = [
+  { href: "#recursos", label: "Recursos" },
+  { href: "#beneficios", label: "Benefícios" },
+  { href: "#depoimentos", label: "Depoimentos" },
+  { href: "#contato", label: "Contato" },
+];
+
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
-    <header className="dark:bg-card/80 fixed top-0 z-50 w-full border-b border-gray-200/20 bg-white/90 shadow-sm backdrop-blur-md">
-      <nav className="container mx-auto flex items-center justify-between px-6 py-4">
-        <Link href="/">
-          <Image
-            className="block dark:hidden"
-            src="/logo.svg"
-            alt="Logo"
-            width={156}
-            height={38}
-            priority
-          />
-          <Image
-            className="hidden dark:block"
-            src="/logo-dark.svg"
-            alt="Logo"
-            width={156}
-            height={38}
-            priority
-          />
-        </Link>
-
-        <div className="hidden items-center space-x-8 md:flex">
-          <a
-            href="#recursos"
-            className="dark:hover:text-primary font-semibold text-gray-700 transition-colors hover:text-blue-600 dark:text-white"
-          >
-            Recursos
-          </a>
-          <a
-            href="#beneficios"
-            className="dark:hover:text-primary font-semibold text-gray-700 transition-colors hover:text-blue-600 dark:text-white"
-          >
-            Benefícios
-          </a>
-          <a
-            href="#depoimentos"
-            className="dark:hover:text-primary font-semibold text-gray-700 transition-colors hover:text-blue-600 dark:text-white"
-          >
-            Depoimentos
-          </a>
-          <a
-            href="#contato"
-            className="dark:hover:text-primary font-semibold text-gray-700 transition-colors hover:text-blue-600 dark:text-white"
-          >
-            Contato
-          </a>
-          <Link href="/authentication">
-            <button className="rounded-full bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-3 font-semibold text-white transition-all duration-300 hover:cursor-pointer hover:shadow-lg">
-              Começar Agora
-            </button>
+    <header className="fixed top-0 z-50 w-full px-4 pt-4">
+      {/* Glass nav pill */}
+      <div className="rounded-2xl border border-slate-200/80 bg-white/75 shadow-lg shadow-slate-200/40 backdrop-blur-xl dark:border-white/10 dark:bg-white/5 dark:shadow-black/30">
+        <nav className="flex items-center justify-between px-6 py-3">
+          <Link href="/">
+            <Image
+              className="block dark:hidden"
+              src="/logo.svg"
+              alt="Logo"
+              width={140}
+              height={34}
+              priority
+            />
+            <Image
+              className="hidden dark:block"
+              src="/logo-dark.svg"
+              alt="Logo"
+              width={140}
+              height={34}
+              priority
+            />
           </Link>
-          <ModeToggle />
-        </div>
 
-        <button
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="rounded-lg p-2 hover:bg-gray-100 md:hidden"
-        >
-          {isMenuOpen ? (
-            <X className="h-6 w-6" />
-          ) : (
-            <Menu className="h-6 w-6" />
-          )}
-        </button>
-      </nav>
-
-      {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="border-t border-gray-200 bg-white md:hidden">
-          <div className="space-y-4 px-6 py-4">
-            <a
-              href="#recursos"
-              className="block text-gray-700 hover:text-blue-600"
-            >
-              Recursos
-            </a>
-            <a
-              href="#beneficios"
-              className="block text-gray-700 hover:text-blue-600"
-            >
-              Benefícios
-            </a>
-            <a
-              href="#depoimentos"
-              className="block text-gray-700 hover:text-blue-600"
-            >
-              Depoimentos
-            </a>
-            <a
-              href="#contato"
-              className="block text-gray-700 hover:text-blue-600"
-            >
-              Contato
-            </a>
+          {/* Desktop nav */}
+          <div className="hidden items-center gap-7 md:flex">
+            {navLinks.map(({ href, label }) => (
+              <a
+                key={href}
+                href={href}
+                className="text-sm font-medium text-slate-600 transition-colors hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-400"
+              >
+                {label}
+              </a>
+            ))}
             <Link href="/authentication">
-              <button className="rounded-full bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-3 text-white transition-all duration-300 hover:shadow-lg">
+              <button className="rounded-xl bg-black px-5 py-2.5 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-px hover:cursor-pointer dark:bg-white dark:text-black">
                 Começar Agora
               </button>
             </Link>
+            <ModeToggle />
+          </div>
+
+          {/* Mobile hamburger */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="rounded-lg p-2 text-slate-600 transition-colors hover:bg-slate-100 md:hidden dark:text-slate-300 dark:hover:bg-white/10"
+          >
+            {isMenuOpen ? (
+              <X className="h-5 w-5" />
+            ) : (
+              <Menu className="h-5 w-5" />
+            )}
+          </button>
+        </nav>
+      </div>
+
+      {/* Mobile menu */}
+      {isMenuOpen && (
+        <div className="mt-2 rounded-2xl border border-slate-200/80 bg-white/90 p-4 shadow-xl backdrop-blur-xl md:hidden dark:border-white/10 dark:bg-slate-900/90">
+          <div className="space-y-1">
+            {navLinks.map(({ href, label }) => (
+              <a
+                key={href}
+                href={href}
+                onClick={() => setIsMenuOpen(false)}
+                className="block rounded-xl px-4 py-2.5 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10"
+              >
+                {label}
+              </a>
+            ))}
+            <div className="pt-2">
+              <Link href="/authentication">
+                <button className="w-full rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 px-5 py-2.5 text-sm font-semibold text-white">
+                  Começar Agora
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
       )}

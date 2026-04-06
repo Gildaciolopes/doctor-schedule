@@ -4,10 +4,12 @@ import Link from "next/link";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+
   return (
-    <footer id="contato" className="bg-background px-6 py-16 text-gray-900">
+    <footer className="border-t border-slate-200/80 px-6 py-16 dark:border-white/8">
       <div className="container mx-auto max-w-6xl">
         <div className="grid gap-12 md:grid-cols-4">
+          {/* Brand */}
           <div className="space-y-4">
             <Link href="/">
               <Image
@@ -25,87 +27,91 @@ const Footer = () => {
                 className="hidden dark:block"
               />
             </Link>
-            <p className="pt-3 text-gray-400">
+            <p className="text-sm leading-relaxed text-slate-400 dark:text-slate-500">
               Revolucionando a gestão médica com tecnologia de ponta.
             </p>
           </div>
 
+          {/* Produto */}
           <div>
-            <h4 className="mb-4 font-semibold dark:text-white">Produto</h4>
-            <div className="space-y-2 text-gray-400">
-              <a
-                href="#"
-                className="dark:hover:text-primary block transition-colors hover:text-blue-500"
-              >
-                Recursos
-              </a>
-              <a
-                href="#"
-                className="dark:hover:text-primary block transition-colors hover:text-blue-500"
-              >
-                Preços
-              </a>
-              <a
-                href="#"
-                className="dark:hover:text-primary block transition-colors hover:text-blue-500"
-              >
-                Segurança
-              </a>
+            <h4 className="mb-4 text-sm font-semibold text-slate-700 dark:text-white">
+              Produto
+            </h4>
+            <div className="space-y-2.5">
+              {["Recursos", "Preços", "Segurança"].map((item) => (
+                <a
+                  key={item}
+                  href="#"
+                  className="block text-sm text-slate-400 transition-colors hover:text-blue-500 dark:text-slate-500 dark:hover:text-blue-400"
+                >
+                  {item}
+                </a>
+              ))}
             </div>
           </div>
 
+          {/* Suporte */}
           <div>
-            <h4 className="mb-4 font-semibold dark:text-white">Suporte</h4>
-            <div className="space-y-2 text-gray-400">
+            <h4 className="mb-4 text-sm font-semibold text-slate-700 dark:text-white">
+              Suporte
+            </h4>
+            <div className="space-y-2.5">
               <a
                 href="#"
-                className="dark:hover:text-primary block transition-colors hover:text-blue-500"
+                className="block text-sm text-slate-400 transition-colors hover:text-blue-500 dark:text-slate-500 dark:hover:text-blue-400"
               >
                 Central de Ajuda
               </a>
               <a
                 href="/privacy"
-                className="dark:hover:text-primary block transition-colors hover:text-blue-500"
+                className="block text-sm text-slate-400 transition-colors hover:text-blue-500 dark:text-slate-500 dark:hover:text-blue-400"
               >
                 Política de Privacidade
               </a>
               <a
                 href="/terms"
-                className="dark:hover:text-primary block transition-colors hover:text-blue-500"
+                className="block text-sm text-slate-400 transition-colors hover:text-blue-500 dark:text-slate-500 dark:hover:text-blue-400"
               >
                 Termos de Uso
               </a>
             </div>
           </div>
 
+          {/* Contato */}
           <div>
-            <h4 className="mb-4 font-semibold dark:text-white">Contato</h4>
-            <div className="space-y-3 text-gray-400">
-              <div className="flex items-center space-x-2">
-                <Phone className="h-4 w-4" />
-                <span>(11) 9999-9999</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Mail className="h-4 w-4" />
-                <span>contato@schedule.com</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <MapPin className="h-4 w-4" />
-                <span>São Paulo, SP</span>
-              </div>
+            <h4 className="mb-4 text-sm font-semibold text-slate-700 dark:text-white">
+              Contato
+            </h4>
+            <div className="space-y-3">
+              {[
+                { icon: Phone, label: "(11) 9999-9999" },
+                { icon: Mail, label: "contato@schedule.com" },
+                { icon: MapPin, label: "São Paulo, SP" },
+              ].map(({ icon: Icon, label }) => (
+                <div
+                  key={label}
+                  className="flex items-center gap-2 text-sm text-slate-400 dark:text-slate-500"
+                >
+                  <Icon className="h-4 w-4 shrink-0" />
+                  <span>{label}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
 
-        <div className="mt-12 border-t border-gray-800 pt-8 text-center text-gray-400 dark:border-gray-400">
+        {/* Bottom bar */}
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-slate-200/80 pt-8 text-xs text-slate-400 sm:flex-row dark:border-white/8 dark:text-slate-500">
+          <p>&copy; {currentYear} Dr Schedule. Todos os direitos reservados.</p>
           <p>
-            &copy; {currentYear} Dr Schedule. Desenvolvido por
-            <span className="text-primary font-semibold">
-              <a href="https://gildacio.com" target="_blank">
-                {" "}
-                Gildácio Lopes
-              </a>
-            </span>
+            Desenvolvido por{" "}
+            <a
+              href="https://gildacio.com"
+              target="_blank"
+              className="text-primary font-semibold transition-colors"
+            >
+              Gildácio Lopes
+            </a>
           </p>
         </div>
       </div>
