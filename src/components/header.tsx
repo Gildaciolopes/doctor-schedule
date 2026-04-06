@@ -53,7 +53,7 @@ const Header = () => {
               </a>
             ))}
             <Link href="/authentication">
-              <button className="rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-blue-500/30 transition-all duration-300 hover:-translate-y-px hover:cursor-pointer hover:shadow-lg hover:shadow-blue-500/40">
+              <button className="rounded-xl bg-black px-5 py-2.5 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-px hover:cursor-pointer dark:bg-white dark:text-black">
                 Começar Agora
               </button>
             </Link>
@@ -63,16 +63,20 @@ const Header = () => {
           {/* Mobile hamburger */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="rounded-lg p-2 text-slate-600 transition-colors hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-white/10 md:hidden"
+            className="rounded-lg p-2 text-slate-600 transition-colors hover:bg-slate-100 md:hidden dark:text-slate-300 dark:hover:bg-white/10"
           >
-            {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {isMenuOpen ? (
+              <X className="h-5 w-5" />
+            ) : (
+              <Menu className="h-5 w-5" />
+            )}
           </button>
         </nav>
       </div>
 
       {/* Mobile menu */}
       {isMenuOpen && (
-        <div className="mt-2 rounded-2xl border border-slate-200/80 bg-white/90 p-4 shadow-xl backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/90 md:hidden">
+        <div className="mt-2 rounded-2xl border border-slate-200/80 bg-white/90 p-4 shadow-xl backdrop-blur-xl md:hidden dark:border-white/10 dark:bg-slate-900/90">
           <div className="space-y-1">
             {navLinks.map(({ href, label }) => (
               <a
