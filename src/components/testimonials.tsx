@@ -4,26 +4,26 @@ const testimonials = [
   {
     name: "Dra. Izadora Alves",
     specialty: "Pediatra",
-    initials: "IA",
+    initials: "I",
     text: "O Doctor Schedule revolucionou minha prática. Agora posso focar 100% nos meus pacientes.",
     rating: 5,
-    gradient: "from-blue-500 to-cyan-500",
+    gradient: "from-primary to-primary",
   },
   {
     name: "Dr. Bruno Gabriel",
     specialty: "Dermatologista",
-    initials: "BG",
+    initials: "B",
     text: "Interface incrível e suporte excepcional. Recomendo para todos os colegas!",
     rating: 5,
-    gradient: "from-violet-500 to-purple-500",
+    gradient: "from-primary to-primary",
   },
   {
     name: "Dr. Gildácio Lopes",
     specialty: "Clínico Geral",
-    initials: "GL",
+    initials: "G",
     text: "Economizo 3 horas por dia em tarefas administrativas. Simplesmente fantástico!",
     rating: 5,
-    gradient: "from-emerald-500 to-teal-500",
+    gradient: "from-primary to-primary",
   },
 ];
 
