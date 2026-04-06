@@ -101,14 +101,14 @@ const Footer = () => {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-slate-200/80 pt-8 text-xs text-slate-400 dark:border-white/8 dark:text-slate-500 sm:flex-row">
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-slate-200/80 pt-8 text-xs text-slate-400 sm:flex-row dark:border-white/8 dark:text-slate-500">
           <p>&copy; {currentYear} Dr Schedule. Todos os direitos reservados.</p>
           <p>
             Desenvolvido por{" "}
             <a
               href="https://gildacio.com"
               target="_blank"
-              className="font-semibold text-blue-500 transition-colors hover:text-blue-400"
+              className="text-primary font-semibold transition-colors"
             >
               Gildácio Lopes
             </a>
