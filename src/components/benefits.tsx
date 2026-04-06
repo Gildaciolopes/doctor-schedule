@@ -20,10 +20,6 @@ const Benefits = () => {
       <div className="container mx-auto max-w-6xl">
         {/* Large glass container */}
         <div className="relative overflow-hidden rounded-3xl border border-slate-200/80 bg-white/55 p-10 backdrop-blur-xl md:p-14 dark:border-white/8 dark:bg-white/4">
-          {/* Internal decorative blobs */}
-          <div className="pointer-events-none absolute -top-24 -right-24 h-64 w-64 rounded-full bg-blue-400/15 blur-3xl dark:bg-blue-500/15" />
-          <div className="pointer-events-none absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-violet-400/15 blur-3xl dark:bg-violet-500/15" />
-
           <div className="relative grid items-center gap-14 lg:grid-cols-2">
             {/* Stats side */}
             <div>
