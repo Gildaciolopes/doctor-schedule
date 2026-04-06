@@ -1,4 +1,4 @@
-import { ArrowRight, CheckCircle, Sparkles } from "lucide-react";
+import { ArrowRight, CheckCircle, Trophy } from "lucide-react";
 import Link from "next/link";
 
 import { getSession } from "@/lib/get-session";
@@ -13,9 +13,9 @@ const Hero = async () => {
       <div className="container mx-auto max-w-6xl">
         {/* Badge */}
         <div className="mb-8 flex justify-center lg:justify-start">
-          <div className="inline-flex items-center gap-2 rounded-full border border-blue-500/25 bg-blue-500/10 px-4 py-1.5 backdrop-blur-sm">
-            <Sparkles className="h-3.5 w-3.5 text-blue-500 dark:text-blue-400" />
-            <span className="text-xs font-semibold text-blue-600 dark:text-blue-400">
+          <div className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white/60 px-3.5 py-1.5 text-sm font-semibold text-slate-700 backdrop-blur-sm transition-all duration-300 hover:-translate-y-px hover:cursor-pointer hover:bg-white hover:shadow-md dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:bg-white/10">
+            <Trophy className="h-3.5 w-3.5 text-black dark:text-white" />
+            <span className="text-xs font-semibold text-black dark:text-white">
               Plataforma #1 em Agendamento Médico
             </span>
           </div>
