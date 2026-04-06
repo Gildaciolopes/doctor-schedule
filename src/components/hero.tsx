@@ -9,7 +9,7 @@ const Hero = async () => {
   const session = await getSession();
 
   return (
-    <section className="relative px-6 pb-24 pt-40">
+    <section className="relative px-6 pt-40 pb-24">
       <div className="container mx-auto max-w-6xl">
         {/* Badge */}
         <div className="mb-8 flex justify-center lg:justify-start">
@@ -25,7 +25,7 @@ const Hero = async () => {
           {/* Left – copy */}
           <div className="space-y-8">
             <div className="space-y-5">
-              <h1 className="text-5xl font-bold leading-[1.08] tracking-tight md:text-6xl lg:text-[4.25rem]">
+              <h1 className="text-5xl leading-[1.08] font-bold tracking-tight md:text-6xl lg:text-[4.25rem]">
                 <span className="block bg-gradient-to-br from-blue-500 via-violet-500 to-purple-600 bg-clip-text text-transparent">
                   Revolucione
                 </span>
@@ -38,15 +38,15 @@ const Hero = async () => {
               </h1>
               <p className="max-w-lg text-lg leading-relaxed text-slate-500 dark:text-slate-400">
                 Simplifique a gestão de consultas com nossa plataforma
-                intuitiva. Mais tempo para cuidar dos pacientes, menos tempo
-                com papelada.
+                intuitiva. Mais tempo para cuidar dos pacientes, menos tempo com
+                papelada.
               </p>
             </div>
 
             {/* CTAs */}
             <div className="flex flex-col gap-3 sm:flex-row">
               <Link href="/authentication">
-                <button className="group flex items-center gap-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-violet-600 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/30 transition-all duration-300 hover:-translate-y-px hover:cursor-pointer hover:shadow-xl hover:shadow-blue-500/45">
+                <button className="group flex items-center gap-2.5 rounded-xl bg-black px-7 py-3.5 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-px hover:cursor-pointer dark:bg-white dark:text-black">
                   <span>{session ? "Ir ao Dashboard" : "Começar Grátis"}</span>
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </button>
