@@ -77,8 +77,6 @@ const Hero = async () => {
 
           {/* Right – glass appointments card */}
           <div className="relative">
-            {/* Glow behind card */}
-            <div className="absolute inset-4 rounded-3xl bg-gradient-to-br from-blue-500/20 to-violet-500/20 blur-3xl" />
             <NextAppointmentsCard />
           </div>
         </div>
