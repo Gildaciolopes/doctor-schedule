@@ -24,10 +24,10 @@ const Hero = async () => {
         <div className="grid items-center gap-16 lg:grid-cols-2">
           {/* Left – copy */}
           <div className="space-y-8">
-            <div className="space-y-5 text-center sm:text-left">
+            <div className="space-y-5 text-center lg:text-left">
               <h1 className="text-4xl leading-[1.08] font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-[4.25rem]">
-                <span className="text-primary sm:block">Revolucione </span>
-                <span className="text-slate-900 sm:block dark:text-white">
+                <span className="text-primary lg:block">Revolucione </span>
+                <span className="text-slate-900 lg:block dark:text-white">
                   seus agendamentos{" "}
                 </span>
                 <span className="text-slate-900 lg:block dark:text-white">
