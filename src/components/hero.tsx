@@ -47,13 +47,13 @@ const Hero = async () => {
             <div className="flex flex-col gap-3 sm:flex-row">
               <Link href="/authentication">
                 <button className="group flex items-center gap-2.5 rounded-xl bg-black px-7 py-3.5 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-px hover:cursor-pointer dark:bg-white dark:text-black">
-                  <span>{session ? "Ir ao Dashboard" : "Começar Grátis"}</span>
+                  <span>{session ? "Ir ao Dashboard" : "Iniciar Sessão"}</span>
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </button>
               </Link>
               <Link href="/authentication?demo=true">
                 <button className="rounded-xl border border-slate-200 bg-white/60 px-7 py-3.5 text-sm font-semibold text-slate-700 backdrop-blur-sm transition-all duration-300 hover:-translate-y-px hover:cursor-pointer hover:bg-white hover:shadow-md dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:bg-white/10">
-                  Ver Demonstração
+                  Começar Grátis
                 </button>
               </Link>
             </div>
