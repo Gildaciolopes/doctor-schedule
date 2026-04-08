@@ -39,11 +39,7 @@ const Testimonials = () => {
             </span>
           </div>
           <h2 className="mb-4 text-4xl font-bold tracking-tight text-slate-900 md:text-5xl dark:text-white">
-            O que nossos{" "}
-            <span className="bg-gradient-to-r from-blue-500 to-violet-500 bg-clip-text text-transparent">
-              médicos
-            </span>{" "}
-            dizem
+            O que nossos <span className="text-primary">médicos</span> dizem
           </h2>
         </div>
 

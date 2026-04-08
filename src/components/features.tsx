@@ -59,10 +59,7 @@ const Features = () => {
             </span>
           </div>
           <h2 className="mb-4 text-4xl font-bold tracking-tight text-slate-900 md:text-5xl dark:text-white">
-            Recursos que fazem a{" "}
-            <span className="bg-gradient-to-r from-blue-500 to-violet-500 bg-clip-text text-transparent">
-              diferença
-            </span>
+            Recursos que fazem a <span className="text-primary">diferença</span>
           </h2>
           <p className="mx-auto max-w-2xl text-lg text-slate-500 dark:text-slate-400">
             Descubra como nossa plataforma pode transformar a gestão da sua

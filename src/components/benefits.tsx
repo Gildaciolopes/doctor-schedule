@@ -8,7 +8,7 @@ const stats = [
 ];
 
 const benefitCards = [
-  "Agenda sempre organizada",
+  "Agenda organizada",
   "Pacientes mais satisfeitos",
   "Menos trabalho manual",
   "Mais tempo para cuidar",
@@ -30,15 +30,13 @@ const Benefits = () => {
               </div>
               <h2 className="mb-10 text-4xl font-bold tracking-tight text-slate-900 md:text-5xl dark:text-white">
                 Transforme sua clínica em uma{" "}
-                <span className="bg-gradient-to-r from-blue-500 to-violet-500 bg-clip-text text-transparent">
-                  máquina eficiente
-                </span>
+                <span className="text-primary">máquina eficiente</span>
               </h2>
 
               <div className="space-y-6">
                 {stats.map((benefit, index) => (
                   <div key={index} className="flex items-center gap-5">
-                    <span className="bg-gradient-to-r from-blue-500 to-violet-500 bg-clip-text text-5xl font-bold text-transparent">
+                    <span className="text-primary text-5xl font-bold">
                       {benefit.stat}
                     </span>
                     <span className="text-sm leading-snug text-slate-600 dark:text-slate-300">

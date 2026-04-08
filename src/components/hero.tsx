@@ -26,9 +26,7 @@ const Hero = async () => {
           <div className="space-y-8">
             <div className="space-y-5">
               <h1 className="text-5xl leading-[1.08] font-bold tracking-tight md:text-6xl lg:text-[4.25rem]">
-                <span className="block bg-gradient-to-br from-blue-500 via-violet-500 to-purple-600 bg-clip-text text-transparent">
-                  Revolucione
-                </span>
+                <span className="text-primary block">Revolucione</span>
                 <span className="block text-slate-900 dark:text-white">
                   seus agendamentos
                 </span>
