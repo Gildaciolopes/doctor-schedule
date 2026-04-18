@@ -27,7 +27,6 @@ type AuthPasswordFieldProps<TFieldValues extends FieldValues> = {
   name: FieldPath<TFieldValues>;
   onValueChange?: () => void;
   placeholder: string;
-  showHint?: string;
 };
 
 const AuthPasswordField = <TFieldValues extends FieldValues>({
@@ -37,7 +36,6 @@ const AuthPasswordField = <TFieldValues extends FieldValues>({
   name,
   onValueChange,
   placeholder,
-  showHint,
 }: AuthPasswordFieldProps<TFieldValues>) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -66,7 +64,7 @@ const AuthPasswordField = <TFieldValues extends FieldValues>({
                 aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
                 aria-pressed={showPassword}
                 onClick={() => setShowPassword((current) => !current)}
-                className="absolute right-3 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center text-slate-400 transition-colors hover:text-slate-700 dark:text-white/55 dark:hover:text-white sm:right-4"
+                className="text-muted-foreground hover:text-foreground absolute right-3 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center transition-colors sm:right-4"
               >
                 {showPassword ? (
                   <EyeOff className="h-[18px] w-[18px] sm:h-5 sm:w-5" />
@@ -79,11 +77,6 @@ const AuthPasswordField = <TFieldValues extends FieldValues>({
           <div className={authFieldMessageWrapperClassName}>
             <FormMessage className={authFieldMessageClassName} />
           </div>
-          {showHint ? (
-            <p className="text-[11px] leading-4 text-slate-400 dark:text-white/45">
-              {showHint}
-            </p>
-          ) : null}
         </FormItem>
       )}
     />

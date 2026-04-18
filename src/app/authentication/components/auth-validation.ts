@@ -38,7 +38,10 @@ export const strongPasswordSchema = z
     message: "Escolha uma senha menos óbvia",
   });
 
-export const loginPasswordSchema = z.string().trim().min(1, { message: "" });
+export const loginPasswordSchema = z
+  .string()
+  .trim()
+  .min(1, { message: "Informe a senha" });
 
 export const isInvalidCredentialsError = (error: {
   code?: string;

@@ -1,8 +1,8 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -40,11 +40,24 @@ const loginSchema = z.object({
   password: loginPasswordSchema,
 });
 
+const ButtonSpinner = ({ className }: { className?: string }) => (
+  <span
+    aria-hidden="true"
+    className={`inline-block h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent ${className ?? ""}`}
+  />
+);
+
 const LoginForm = () => {
   const router = useRouter();
+  const [activeAction, setActiveAction] = useState<"submit" | "google" | null>(
+    null,
+  );
+  const [isNavigating, setIsNavigating] = useState(false);
+  const [isGoogleSubmitting, setIsGoogleSubmitting] = useState(false);
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
-    mode: "onChange",
+    mode: "onSubmit",
+    reValidateMode: "onChange",
     defaultValues: {
       email: "",
       password: "",
@@ -53,6 +66,7 @@ const LoginForm = () => {
 
   const onSubmit = async (values: z.infer<typeof loginSchema>) => {
     form.clearErrors("root");
+    setActiveAction("submit");
 
     await authClient.signIn.email(
       {
@@ -61,17 +75,21 @@ const LoginForm = () => {
       },
       {
         onSuccess: () => {
+          setIsNavigating(true);
           router.push("/dashboard");
         },
         onError: (ctx) => {
           if (isInvalidCredentialsError(ctx.error)) {
+            setActiveAction(null);
             form.setError("root", {
               type: "manual",
               message: "E-mail ou senha inválidos.",
             });
+            form.setFocus("password");
             return;
           }
 
+          setActiveAction(null);
           toast.error("Não foi possível entrar agora. Tente novamente.");
         },
       },
@@ -79,11 +97,21 @@ const LoginForm = () => {
   };
 
   const handleGoogleLogin = async () => {
-    await authClient.signIn.social({
-      provider: "google",
-      callbackURL: "/dashboard",
-      scopes: ["email", "profile"],
-    });
+    setActiveAction("google");
+    setIsGoogleSubmitting(true);
+
+    try {
+      await authClient.signIn.social({
+        provider: "google",
+        callbackURL: "/dashboard",
+        scopes: ["email", "profile"],
+      });
+      setIsNavigating(true);
+    } catch {
+      setActiveAction(null);
+      setIsGoogleSubmitting(false);
+      toast.error("Não foi possível iniciar o login com Google.");
+    }
   };
 
   const clearRootError = () => {
@@ -92,27 +120,35 @@ const LoginForm = () => {
     }
   };
 
+  const isBusy = form.formState.isSubmitting || isGoogleSubmitting || isNavigating;
+  const isSubmitLoading =
+    form.formState.isSubmitting || (isNavigating && activeAction === "submit");
+  const isGoogleLoading =
+    isGoogleSubmitting || (isNavigating && activeAction === "google");
+
   return (
     <div className={authCardClassName}>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className="flex h-full min-h-0 flex-col"
+          noValidate
         >
           <div className="space-y-1">
-            <h3 className="text-[1.65rem] font-semibold tracking-tight text-white sm:text-2xl lg:text-[1.85rem]">
+            <h3 className="text-foreground text-[1.65rem] font-semibold tracking-tight sm:text-2xl lg:text-[1.85rem]">
               Bem-vindo de volta
             </h3>
-            <p className="text-sm leading-5 text-white/65 lg:leading-5">
-              Faça login para continuar com sua agenda.
+            <p className="text-muted-foreground text-sm leading-5 lg:leading-5">
+              Entre com seu e-mail e senha para acessar sua agenda com
+              segurança.
             </p>
           </div>
 
           <div className="mt-4 flex-1 sm:mt-5 lg:mt-4">
             <div className="space-y-2.5 lg:space-y-2">
-              <div className="min-h-5">
+              <div className="min-h-5" aria-live="polite">
                 {form.formState.errors.root?.message ? (
-                  <p className="text-sm text-rose-200">
+                  <p className="bg-destructive/8 text-destructive rounded-xl border border-destructive/20 px-3 py-2 text-sm">
                     {form.formState.errors.root.message}
                   </p>
                 ) : null}
@@ -129,6 +165,9 @@ const LoginForm = () => {
                     <FormControl>
                       <Input
                         {...field}
+                        autoComplete="email"
+                        autoFocus
+                        inputMode="email"
                         placeholder="Digite seu e-mail"
                         className={authInputClassName}
                         onChange={(event) => {
@@ -145,6 +184,7 @@ const LoginForm = () => {
               />
 
               <AuthPasswordField
+                autoComplete="current-password"
                 control={form.control}
                 label="Senha"
                 name="password"
@@ -154,43 +194,54 @@ const LoginForm = () => {
             </div>
           </div>
 
-          <div className="mt-2.5 space-y-3 border-t border-white/8 pt-2.5 lg:mt-2 lg:space-y-2.5 lg:pt-2">
+          <div className="mt-2.5 space-y-3 border-t border-border/80 pt-2.5 lg:mt-2 lg:space-y-2.5 lg:pt-2">
             <Button
               type="submit"
               className={authPrimaryButtonClassName}
-              disabled={form.formState.isSubmitting || !form.formState.isValid}
+              disabled={isBusy}
+              aria-label={isSubmitLoading ? "Entrando" : "Entrar"}
             >
-              {form.formState.isSubmitting ? (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              ) : (
-                "Entrar"
-              )}
+              {isSubmitLoading ? <ButtonSpinner /> : "Entrar"}
             </Button>
             <Button
               variant="outline"
               className={authSecondaryButtonClassName}
               type="button"
               onClick={handleGoogleLogin}
+              disabled={isBusy}
+              aria-label={
+                isGoogleLoading ? "Abrindo login com Google" : "Entrar com Google"
+              }
             >
-              <svg viewBox="0 0 24 24" className="mr-2 h-4 w-4">
-                <path
-                  d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-                  fill="#4285F4"
-                />
-                <path
-                  d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-                  fill="#34A853"
-                />
-                <path
-                  d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-                  fill="#FBBC05"
-                />
-                <path
-                  d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-                  fill="#EA4335"
-                />
-              </svg>
-              Entrar com Google
+              {isGoogleLoading ? (
+                <ButtonSpinner />
+              ) : (
+                <>
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="text-muted-foreground h-4 w-4"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M21.8 12.23c0-.7-.06-1.37-.18-2.01H12v3.8h5.5a4.7 4.7 0 0 1-2.04 3.08v2.5h3.3c1.93-1.78 3.04-4.4 3.04-7.37Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M12 22c2.76 0 5.07-.9 6.76-2.44l-3.3-2.5c-.92.61-2.08.97-3.46.97-2.66 0-4.91-1.8-5.72-4.2H2.88v2.57A10 10 0 0 0 12 22Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M6.28 13.83A6 6 0 0 1 5.96 12c0-.63.11-1.23.32-1.83V7.6H2.88A10 10 0 0 0 2 12c0 1.6.38 3.1 1.04 4.4l3.24-2.57Z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M12 5.97c1.5 0 2.86.52 3.92 1.53l2.93-2.93C17.05 2.9 14.74 2 12 2a10 10 0 0 0-9.12 5.6l3.4 2.57c.8-2.4 3.06-4.2 5.72-4.2Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  Entrar com Google
+                </>
+              )}
             </Button>
           </div>
         </form>

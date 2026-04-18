@@ -123,6 +123,24 @@
   }
 }
 
+@layer utilities {
+  .auth-shadow-soft {
+    box-shadow: 0 8px 20px color-mix(in oklab, var(--background) 28%, transparent);
+  }
+
+  .auth-shadow-card {
+    box-shadow: 0 18px 45px color-mix(in oklab, var(--background) 34%, transparent);
+  }
+
+  .auth-shadow-shell {
+    box-shadow: 0 30px 80px color-mix(in oklab, var(--background) 42%, transparent);
+  }
+
+  .auth-shadow-panel {
+    box-shadow: 10px 0 30px color-mix(in oklab, var(--background) 26%, transparent);
+  }
+}
+
 /* ── Landing page – animated orbs ─────────────────────────────────── */
 @keyframes landing-float-1 {
   0%,
